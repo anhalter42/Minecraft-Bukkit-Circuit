@@ -1,0 +1,6 @@
+## YAML Template.
+---
+name: Circuit
+main: com.mahn42.anhalter42.circuit.Circuit
+version: 0.1
+depend: [MAHN42-Framework]
