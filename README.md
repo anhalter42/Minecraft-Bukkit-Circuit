@@ -11,7 +11,7 @@ groß und unheimlich schwer aufzubauen.
 42M1000 (Schleusenschaltkreis)
 ------
 
-Ein Steuerschaltkreis für Schleusen, er trägt die Bezeichnung 42M1000.
+Ein Steuerschaltkreis für Schleusen.
 
 Pinbelegung:
 - 2 Eingäng für das Signal zum Wechseln des Schleusenzustandes
