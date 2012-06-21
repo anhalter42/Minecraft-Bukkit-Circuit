@@ -8,11 +8,12 @@ Einfache kleine Schaltkreise sollen vordefiniert sein, um bestimmtes Verhalten l
 Alles kann natürlich mit entsprechenden Redstone Schaltungen erreicht werden. DIese sind allerdings sehr
 groß und unheimlich schwer aufzubauen.
 
-Sluice
+42M1000 (Schleusenschaltkreis)
 ------
+
 Ein Steuerschaltkreis für Schleusen, er trägt die Bezeichnung 42M1000.
 
-Einfache Schleuse:
+Pinbelegung:
 - 2 Eingäng für das Signal zum Wechseln des Schleusenzustandes
   - für Tor 1 zum Antriggern des Zustandswechsel
   - für Tor 2 zum Antriggern des Zustandswechsel
@@ -22,8 +23,7 @@ Einfache Schleuse:
   - Steuersignal für Tor 2 (höheres Niveau)
   - Steuersignal für die Pumpe 
 
-Zustandswechsel
----------------
+Funktionsweise:
 - 2 Hauptzustände 
   - 1. Zustand (Tor 1 auf, Becken leer gepumpt und Tor 2 zu)
   - 2. Zustand (Tor 1 zu, Becken voll gepumpt und Tor 2 auf)
