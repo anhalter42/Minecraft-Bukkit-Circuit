@@ -10,7 +10,7 @@ groß und unheimlich schwer aufzubauen.
 
 Sluice
 ------
-Ein Steuerschaltkreis für Schleusen.
+Ein Steuerschaltkreis für Schleusen, er trägt die Bezeichnung 42M1000.
 
 Einfache Schleuse:
 - 2 Eingäng für das Signal zum Wechseln des Schleusenzustandes
@@ -21,8 +21,10 @@ Einfache Schleuse:
   - Steuersignal für Tor 1 (niedriges Niveau)
   - Steuersignal für Tor 2 (höheres Niveau)
   - Steuersignal für die Pumpe 
-- Zustandswechsel
-  - 2 Hauptzustände 
+
+Zustandswechsel
+---------------
+- 2 Hauptzustände 
   - 1. Zustand (Tor 1 auf, Becken leer gepumpt und Tor 2 zu)
   - 2. Zustand (Tor 1 zu, Becken voll gepumpt und Tor 2 auf)
   - Wechsel von 1 nach 2
