@@ -4,14 +4,11 @@
  */
 package com.mahn42.anhater42.circuit;
 
-import com.mahn42.framework.BuildingDescription;
 import com.mahn42.framework.BuildingDetector;
 import com.mahn42.framework.Framework;
 import com.mahn42.framework.WorldDBList;
 import java.util.HashMap;
-import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.util.Vector;
 
 /**
  *
@@ -28,6 +25,7 @@ public class Circuit extends JavaPlugin {
     public static void main(String[] args) {
     }
 
+    @Override
     public void onEnable() {
         framework = Framework.plugin;
         DBs = new WorldDBList<CircuitBuildingDB>(CircuitBuildingDB.class, this);
@@ -36,26 +34,27 @@ public class Circuit extends JavaPlugin {
         
         CircuitHandler lHandler = new CircuitHandler(this);
         
-        BuildingDescription lDesc;
-        BuildingDescription.BlockDescription lBDesc;
-        BuildingDescription.RelatedTo lRel;
+        CircuitDescription lDesc;
+        //BuildingDescription.BlockDescription lBDesc;
+        //BuildingDescription.RelatedTo lRel;
         
         BuildingDetector lDetector = framework.getBuildingDetector();
-        lDesc = new CircuitDescription(CircuitDescription.Type.DIP, new CircuitDescription.PinMode[] {
-            CircuitDescription.PinMode.Output,              // Tor 1 hoch/runter
-            CircuitDescription.PinMode.Output,              // Pumpe an/aus
-            CircuitDescription.PinMode.Output,              // Tor 2 hoch/runter
-            CircuitDescription.PinMode.NotConnected,
-            CircuitDescription.PinMode.Input,               // Wechsel Signal an Tor 1
-            CircuitDescription.PinMode.NotConnected,
-            CircuitDescription.PinMode.Input,               // Wechsel Signal an Tor 2
-            CircuitDescription.PinMode.NotConnected
-        });
+        lDesc = new CircuitDescription();
+        lDesc.type = CircuitDescription.Type.DIP;
+        lDesc.pins.add(CircuitDescription.PinMode.Output, "out_door1");
+        lDesc.pins.add(CircuitDescription.PinMode.Output, "out_pump");
+        lDesc.pins.add(CircuitDescription.PinMode.Output, "out_door2");
+        lDesc.pins.add(CircuitDescription.PinMode.NotConnected);
+        lDesc.pins.add(CircuitDescription.PinMode.Input, "in_door1");
+        lDesc.pins.add(CircuitDescription.PinMode.NotConnected);
+        lDesc.pins.add(CircuitDescription.PinMode.Input, "in_door2");
+        lDesc.pins.add(CircuitDescription.PinMode.NotConnected);
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
         lDesc.activate();
     }
     
+    @Override
     public void onDisable() {
         getServer().getScheduler().cancelTasks(this);
     }
