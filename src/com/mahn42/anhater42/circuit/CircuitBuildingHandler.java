@@ -8,6 +8,7 @@ import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingDB;
 import com.mahn42.framework.BuildingHandlerBase;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -16,7 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
  *
  * @author andre
  */
-class CircuitBuildingHandler extends BuildingHandlerBase {
+public class CircuitBuildingHandler extends BuildingHandlerBase {
 
     protected Circuit plugin;
     
@@ -27,21 +28,34 @@ class CircuitBuildingHandler extends BuildingHandlerBase {
     @Override
     public boolean breakBlock(BlockBreakEvent aEvent, Building aBuilding) {
         World lWorld = aEvent.getBlock().getWorld();
+        CircuitBuilding lCircuit = (CircuitBuilding)aBuilding;
         CircuitBuildingDB lDB = plugin.DBs.getDB(lWorld);
-        lDB.remove(aBuilding);
+        lDB.remove(lCircuit);
         return true;
     }
 
     @Override
     public boolean redstoneChanged(BlockRedstoneEvent aEvent, Building aBuilding) {
-        boolean lOpen = aEvent.getNewCurrent() > 0;
-        CircuitBuilding lGate = (CircuitBuilding)aBuilding;
+        CircuitBuilding lCircuit = (CircuitBuilding)aBuilding;
+        plugin.circuitTask.addChange(lCircuit,aEvent.getBlock(), aEvent.getNewCurrent());
         return true;
     }
 
     @Override
     public boolean playerInteract(PlayerInteractEvent aEvent, Building aBuilding) {
-        return true;
+        Player lPlayer = aEvent.getPlayer();
+        World lWorld = lPlayer.getWorld();
+        boolean lFound = false;
+        CircuitBuildingDB lDB = plugin.DBs.getDB(lWorld);
+        if (lDB.getBuildings(aBuilding.edge1).isEmpty()
+                && lDB.getBuildings(aBuilding.edge2).isEmpty()) {
+            CircuitBuilding lCircuit = new CircuitBuilding();
+            lCircuit.cloneFrom(aBuilding);
+            lDB.addRecord(lCircuit);
+            lPlayer.sendMessage("Building " + lCircuit.getName() + " found.");
+            lFound = true;
+        }
+        return lFound;
     }
 
     @Override

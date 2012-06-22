@@ -20,7 +20,8 @@ public class Circuit extends JavaPlugin {
 
     public WorldDBList<CircuitBuildingDB> DBs;
     
-    protected HashMap<CircuitBuilding, CircuitTask> fCircuitTasks = new HashMap<CircuitBuilding, CircuitTask>();
+    public CircuitTask circuitTask;
+    public HashMap<String, CircuitHandler> circuitHandlers = new HashMap<String, CircuitHandler>();
 
     public static void main(String[] args) {
     }
@@ -32,13 +33,27 @@ public class Circuit extends JavaPlugin {
         
         framework.registerSaver(DBs);
         
-        CircuitBuildingHandler lHandler = new CircuitBuildingHandler(this);
+        circuitTask = new CircuitTask(this);
+        getServer().getScheduler().scheduleAsyncRepeatingTask(this, circuitTask, 10, 2);
         
+        CircuitBuildingHandler lHandler = new CircuitBuildingHandler(this);
+
+        registerCircuitHandler(new CircuitHandler42M00());
         CircuitDescription lDesc;
-        //BuildingDescription.BlockDescription lBDesc;
-        //BuildingDescription.RelatedTo lRel;
         
         BuildingDetector lDetector = framework.getBuildingDetector();
+        lDesc = new CircuitDescription();
+        lDesc.name = "42M00"; //AND
+        lDesc.type = CircuitDescription.Type.DIP;
+        lDesc.pins.add(CircuitDescription.PinMode.Input);
+        lDesc.pins.add(CircuitDescription.PinMode.Input);
+        lDesc.pins.add(CircuitDescription.PinMode.Output);
+        lDesc.pins.add(CircuitDescription.PinMode.Output);
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.activate();
+        lDesc.createAndActivateXZ();
+        /*
         lDesc = new CircuitDescription();
         lDesc.type = CircuitDescription.Type.DIP;
         lDesc.pins.add(CircuitDescription.PinMode.Output, "out_door1");
@@ -52,6 +67,11 @@ public class Circuit extends JavaPlugin {
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
         lDesc.activate();
+        */
+    }
+    
+    public void registerCircuitHandler(CircuitHandler aHandler) {
+        circuitHandlers.put(aHandler.name, aHandler);
     }
     
     @Override
