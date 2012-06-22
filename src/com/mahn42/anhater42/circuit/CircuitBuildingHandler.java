@@ -16,11 +16,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
  *
  * @author andre
  */
-class CircuitHandler extends BuildingHandlerBase {
+class CircuitBuildingHandler extends BuildingHandlerBase {
 
     protected Circuit plugin;
     
-    public CircuitHandler(Circuit aPlugin) {
+    public CircuitBuildingHandler(Circuit aPlugin) {
         plugin = aPlugin;
     }
 

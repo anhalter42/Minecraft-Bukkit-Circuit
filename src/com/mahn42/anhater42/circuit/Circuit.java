@@ -32,7 +32,7 @@ public class Circuit extends JavaPlugin {
         
         framework.registerSaver(DBs);
         
-        CircuitHandler lHandler = new CircuitHandler(this);
+        CircuitBuildingHandler lHandler = new CircuitBuildingHandler(this);
         
         CircuitDescription lDesc;
         //BuildingDescription.BlockDescription lBDesc;
