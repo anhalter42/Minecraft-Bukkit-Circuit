@@ -10,11 +10,13 @@ package com.mahn42.anhalter42.circuit;
  */
 public class CircuitHandler {
 
+    public String typeName;
     public String name;
     
     protected CircuitHandlerContext fContext;
     
-    public CircuitHandler(String aName) {
+    public CircuitHandler(String aTypeName, String aName) {
+        typeName = aTypeName;
         name = aName;
     }
     

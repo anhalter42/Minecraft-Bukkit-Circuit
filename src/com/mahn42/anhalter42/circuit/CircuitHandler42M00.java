@@ -10,6 +10,6 @@ package com.mahn42.anhalter42.circuit;
  */
 public class CircuitHandler42M00 extends CircuitHandler {
     public CircuitHandler42M00() {
-        super("42M00");
+        super("DIP4", "42M00");
     }
 }

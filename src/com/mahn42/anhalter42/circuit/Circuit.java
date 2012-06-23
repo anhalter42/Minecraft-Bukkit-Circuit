@@ -43,8 +43,8 @@ public class Circuit extends JavaPlugin {
         
         BuildingDetector lDetector = framework.getBuildingDetector();
         lDesc = new CircuitDescription();
-        lDesc.name = "Circuit.42M00"; //AND
-        lDesc.typeName = "42M00";
+        lDesc.name = "Circuit.DIP4"; //AND
+        lDesc.typeName = "DIP4";
         lDesc.type = CircuitDescription.Type.DIP;
         lDesc.pins.add(CircuitDescription.PinMode.Input);
         lDesc.pins.add(CircuitDescription.PinMode.Input);

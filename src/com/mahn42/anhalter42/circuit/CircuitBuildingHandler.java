@@ -11,6 +11,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
@@ -57,6 +58,23 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
         }
         return lFound;
     }
+    
+    @Override
+    public boolean signChanged(SignChangeEvent aEvent, Building aBuilding) {
+        String[] lLines = aEvent.getLines();
+        CircuitBuilding lCircuit = (CircuitBuilding)aBuilding;
+        CircuitHandler lHandler = plugin.circuitHandlers.get(lLines[0]);
+        if (lHandler.typeName.equals(((CircuitDescription)lCircuit.description).typeName)) {
+            lCircuit.circuitType = lHandler.name;
+        } else {
+            Player lPlayer = aEvent.getPlayer();
+            if (lPlayer != null) {
+                lPlayer.sendMessage("Circuit " + lHandler.name + " needs to be type " + lHandler.typeName);
+            }
+        }
+        return true;
+    }
+
 
     @Override
     public BuildingDB getDB(World aWorld) {
