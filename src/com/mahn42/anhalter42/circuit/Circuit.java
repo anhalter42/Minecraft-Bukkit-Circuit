@@ -43,7 +43,8 @@ public class Circuit extends JavaPlugin {
         
         BuildingDetector lDetector = framework.getBuildingDetector();
         lDesc = new CircuitDescription();
-        lDesc.name = "42M00"; //AND
+        lDesc.name = "Circuit.42M00"; //AND
+        lDesc.typeName = "42M00";
         lDesc.type = CircuitDescription.Type.DIP;
         lDesc.pins.add(CircuitDescription.PinMode.Input);
         lDesc.pins.add(CircuitDescription.PinMode.Input);
@@ -51,7 +52,6 @@ public class Circuit extends JavaPlugin {
         lDesc.pins.add(CircuitDescription.PinMode.Output);
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
-        lDesc.activate();
         lDesc.createAndActivateXZ();
         /*
         lDesc = new CircuitDescription();

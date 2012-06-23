@@ -5,6 +5,7 @@
 package com.mahn42.anhalter42.circuit;
 
 import com.mahn42.framework.BuildingDescription;
+import com.mahn42.framework.WoolColors;
 import java.util.ArrayList;
 import org.bukkit.Material;
 import org.bukkit.util.Vector;
@@ -54,6 +55,7 @@ public class CircuitDescription extends BuildingDescription {
     public int inputCount = 0;
     public int outputCount = 0;
     public int ncCount = 0;
+    public String typeName;
     
     public Pins pins = new Pins();
 
@@ -85,29 +87,38 @@ public class CircuitDescription extends BuildingDescription {
         lCount = ((lCount + 1) >> 1) << 1; 
         int lWidth = lCount >> 1;
         BlockDescription lBlock;
+        BlockDescription lLB, lRT, lLast = null;
         RelatedTo lRel;
         lBlock = newBlockDescription("lt");
-        lBlock.materials.add(Material.WOOL);
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
         lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rt");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = lWidth - 1;
         lBlock.newRelatedTo(new Vector(0, 0, 1), "lb");
-        lBlock = newBlockDescription("rt");
-        lBlock.materials.add(Material.WOOL);
+        
+        lBlock = newBlockDescription("rt"); lRT = lBlock;
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
         lBlock.newRelatedTo(new Vector(0, 0, 1), "rb");
-        lBlock = newBlockDescription("lb");
-        lBlock.materials.add(Material.WOOL);
+        
+        lBlock = newBlockDescription("lb"); lLB = lBlock;
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
         lBlock.signSensible = true;
+        lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rb");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+        
         lBlock = newBlockDescription("rb");
-        lBlock.materials.add(Material.WOOL);
-        String lLastPin = null;
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+        //String lLastPin = null;
         String lNewPin = null;
         int lDir = 1;
         int lPos = 0;
         for(Pin lPin : pins) {
-            if (lPos == (lCount << 1)) {
+            if (lPos == (lCount / 2)) {
                 lDir = -1;
-                lLastPin = null;
+                lLast = null;
             }
+            lPos++;
             switch (lPin.mode) {
                 case Input:
                     inputCount++;
@@ -116,6 +127,7 @@ public class CircuitDescription extends BuildingDescription {
                     else
                         lNewPin = "In" + inputCount;
                     lBlock = newBlockDescription(lNewPin);
+                    lBlock.materials.add(Material.WOOL, WoolColors.gray);
                     lBlock.redstoneSensible = true;
                     break;
                 case Output:
@@ -125,8 +137,10 @@ public class CircuitDescription extends BuildingDescription {
                     else
                         lNewPin = "Out" + outputCount;
                     lBlock = newBlockDescription(lNewPin + "Lever");
-                    lBlock.newRelatedTo(new Vector(0, -1, 0), lNewPin);
+                    lBlock.materials.add(Material.LEVER);
                     lBlock = newBlockDescription(lNewPin);
+                    lBlock.materials.add(Material.WOOL, WoolColors.gray);
+                    lBlock.newRelatedTo(new Vector(0, 1, 0), lNewPin + "Lever");
                     break;
                 case NotConnected:
                     ncCount++;
@@ -135,19 +149,20 @@ public class CircuitDescription extends BuildingDescription {
                     else
                         lNewPin = "NC" + ncCount;
                     lBlock = newBlockDescription(lNewPin);
+                    lBlock.materials.add(Material.WOOL, WoolColors.gray);
                     break;
             }
-            if (lLastPin == null) {
+            if (lLast == null) {
                 if (lDir > 0) {
-                    lBlock.newRelatedTo(new Vector(0,0,1), "lb");
+                    lLB.newRelatedTo(new Vector(0, 0, 1), lNewPin);
                 } else {
-                    lBlock.newRelatedTo(new Vector(0,0,-1), "rt");
+                    lRT.newRelatedTo(new Vector(0, 0, -1), lNewPin);
                 }
             } else {
-                lRel = lBlock.newRelatedTo(new Vector(2 * lDir,0,0), lLastPin);
+                lRel = lLast.newRelatedTo(new Vector(2 * lDir,0,0), lBlock.name);
                 lRel.minDistance = 1;
             }
-            lLastPin = lNewPin;
+            lLast = lBlock;
         }
     }
 
