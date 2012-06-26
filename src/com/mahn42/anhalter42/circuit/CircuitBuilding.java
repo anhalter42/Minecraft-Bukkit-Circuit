@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class CircuitBuilding extends Building{
 
-    public String circuitType;
-    public String pinValues; // Comma separated true,false,false,true
+    public String circuitType = "";
+    public String pinValues = ""; // Comma separated true,false,false,true
     
     @Override
     protected void toCSVInternal(ArrayList aCols) {
