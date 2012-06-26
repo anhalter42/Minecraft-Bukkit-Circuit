@@ -7,7 +7,9 @@ package com.mahn42.anhalter42.circuit;
 import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingDB;
 import com.mahn42.framework.BuildingHandlerBase;
+import java.util.ArrayList;
 import org.bukkit.World;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockRedstoneEvent;
@@ -52,9 +54,13 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
                 && lDB.getBuildings(aBuilding.edge2).isEmpty()) {
             CircuitBuilding lCircuit = new CircuitBuilding();
             lCircuit.cloneFrom(aBuilding);
-            lDB.addRecord(lCircuit);
-            lPlayer.sendMessage("Building " + lCircuit.getName() + " found.");
-            lFound = true;
+            CircuitDescription lCDesc = (CircuitDescription)lCircuit.description;
+            lPlayer.sendMessage("Circuit type " + lCDesc.circuitTypeName + " found.");
+            Sign lSign = (Sign)lCircuit.getBlock("sign").position.getBlock(lWorld).getState();
+            if (checkPins(lCircuit, lSign.getLines()[0], aEvent.getPlayer())) {
+                lDB.addRecord(lCircuit);
+                lFound = true;
+            }
         }
         return lFound;
     }
@@ -63,15 +69,7 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
     public boolean signChanged(SignChangeEvent aEvent, Building aBuilding) {
         String[] lLines = aEvent.getLines();
         CircuitBuilding lCircuit = (CircuitBuilding)aBuilding;
-        CircuitHandler lHandler = plugin.circuitHandlers.get(lLines[0]);
-        if (lHandler.typeName.equals(((CircuitDescription)lCircuit.description).typeName)) {
-            lCircuit.circuitType = lHandler.name;
-        } else {
-            Player lPlayer = aEvent.getPlayer();
-            if (lPlayer != null) {
-                lPlayer.sendMessage("Circuit " + lHandler.name + " needs to be type " + lHandler.typeName);
-            }
-        }
+        checkPins(lCircuit, lLines[0], aEvent.getPlayer());
         return true;
     }
 
@@ -79,6 +77,37 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
     @Override
     public BuildingDB getDB(World aWorld) {
         return plugin.DBs.getDB(aWorld);
+    }
+    
+    protected boolean checkPins(CircuitBuilding aCircuit, String aHandlerName, Player aPlayer) {
+        if (aHandlerName != null && !aHandlerName.isEmpty()) {
+            CircuitHandler lHandler = plugin.circuitHandlers.get(aHandlerName);
+            if (lHandler.typeName.equals(((CircuitDescription)aCircuit.description).circuitTypeName)) {
+                ArrayList<String> lFails = new ArrayList<String>();
+                if (lHandler.acceptPins(aCircuit, lFails)) {
+                    aCircuit.circuitType = lHandler.name;
+                    return true;
+                } else {
+                    if (aPlayer != null) {
+                        aPlayer.sendMessage("Circuit " + lHandler.name + " has a different pin assignments (check levers)!");
+                        for(String lFail : lFails) {
+                            aPlayer.sendMessage(lFail);
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                if (aPlayer != null) {
+                    aPlayer.sendMessage("Circuit " + lHandler.name + " needs to be type " + lHandler.typeName);
+                }
+                return false;
+            }
+        } else {
+            if (aPlayer != null) {
+                aPlayer.sendMessage("Circuit must have a given type on first line on sign!");
+            }
+            return false;
+        }
     }
     
 }

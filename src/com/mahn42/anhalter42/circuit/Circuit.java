@@ -8,6 +8,8 @@ import com.mahn42.framework.BuildingDetector;
 import com.mahn42.framework.Framework;
 import com.mahn42.framework.WorldDBList;
 import java.util.HashMap;
+import java.util.List;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -34,7 +36,7 @@ public class Circuit extends JavaPlugin {
         framework.registerSaver(DBs);
         
         circuitTask = new CircuitTask(this);
-        getServer().getScheduler().scheduleAsyncRepeatingTask(this, circuitTask, 10, 2);
+        getServer().getScheduler().scheduleAsyncRepeatingTask(this, circuitTask, 10, 80);
         
         CircuitBuildingHandler lHandler = new CircuitBuildingHandler(this);
 
@@ -43,13 +45,17 @@ public class Circuit extends JavaPlugin {
         
         BuildingDetector lDetector = framework.getBuildingDetector();
         lDesc = new CircuitDescription();
-        lDesc.name = "Circuit.DIP4"; //AND
-        lDesc.typeName = "DIP4";
+        lDesc.name = "Circuit.DIP4"; // IC with 4 Pins
+        lDesc.typeName = "DIP IC 4 Pins";
+        lDesc.circuitTypeName = "DIP4";
         lDesc.type = CircuitDescription.Type.DIP;
+        /*
         lDesc.pins.add(CircuitDescription.PinMode.Input);
         lDesc.pins.add(CircuitDescription.PinMode.Input);
         lDesc.pins.add(CircuitDescription.PinMode.Output);
         lDesc.pins.add(CircuitDescription.PinMode.Output);
+        */
+        lDesc.pinCount = 4;
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
@@ -68,6 +74,10 @@ public class Circuit extends JavaPlugin {
         lDetector.addDescription(lDesc);
         lDesc.activate();
         */
+        List<World> lWorlds = getServer().getWorlds();
+        for(World lWorld : lWorlds) {
+            DBs.getDB(lWorld);
+        }
     }
     
     public void registerCircuitHandler(CircuitHandler aHandler) {

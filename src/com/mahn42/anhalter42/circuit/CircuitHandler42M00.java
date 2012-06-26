@@ -4,6 +4,8 @@
  */
 package com.mahn42.anhalter42.circuit;
 
+import java.util.logging.Logger;
+
 /**
  *
  * @author andre
@@ -11,5 +13,18 @@ package com.mahn42.anhalter42.circuit;
 public class CircuitHandler42M00 extends CircuitHandler {
     public CircuitHandler42M00() {
         super("DIP4", "42M00");
+        pins.add(PinMode.Input);
+        pins.add(PinMode.Input);
+        pins.add(PinMode.Output);
+        pins.add(PinMode.Output);
+    }
+    
+    @Override
+    protected void tick() {
+        //Logger.getLogger("CircuitHandler").info(this.getClass().getName() + ".tick()");
+        //Logger.getLogger("CircuitHandler").info(fContext.toString());
+        setPin("pin3", fContext.pins.get("pin1").newValue && fContext.pins.get("pin2").newValue);
+        setPin("pin4", !(fContext.pins.get("pin1").newValue && fContext.pins.get("pin2").newValue));
+        //Logger.getLogger("CircuitHandler").info(this.getClass().getName() + ".tick()");
     }
 }
