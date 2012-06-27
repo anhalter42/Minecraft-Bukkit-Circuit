@@ -57,7 +57,15 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
             CircuitDescription lCDesc = (CircuitDescription)lCircuit.description;
             lPlayer.sendMessage("Circuit type " + lCDesc.circuitTypeName + " found.");
             Sign lSign = (Sign)lCircuit.getBlock("sign").position.getBlock(lWorld).getState();
-            if (checkPins(lCircuit, lSign.getLines()[0], aEvent.getPlayer())) {
+            String[] lSignLines = lSign.getLines();
+            if (lSignLines.length > 1) {
+                lCircuit.signLine1 = lSign.getLine(1);
+            } else if (lSignLines.length > 2) {
+                lCircuit.signLine2 = lSign.getLine(2);
+            } else if (lSignLines.length > 3) {
+                lCircuit.signLine3 = lSign.getLine(3);
+            }
+            if (checkPins(lCircuit, lSignLines[0], aEvent.getPlayer())) {
                 lDB.addRecord(lCircuit);
                 lFound = true;
             }

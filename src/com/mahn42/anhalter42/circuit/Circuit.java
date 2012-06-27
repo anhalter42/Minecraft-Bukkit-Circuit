@@ -44,36 +44,37 @@ public class Circuit extends JavaPlugin {
         CircuitDescription lDesc;
         
         BuildingDetector lDetector = framework.getBuildingDetector();
+        
         lDesc = new CircuitDescription();
         lDesc.name = "Circuit.DIP4"; // IC with 4 Pins
         lDesc.typeName = "DIP IC 4 Pins";
         lDesc.circuitTypeName = "DIP4";
         lDesc.type = CircuitDescription.Type.DIP;
-        /*
-        lDesc.pins.add(CircuitDescription.PinMode.Input);
-        lDesc.pins.add(CircuitDescription.PinMode.Input);
-        lDesc.pins.add(CircuitDescription.PinMode.Output);
-        lDesc.pins.add(CircuitDescription.PinMode.Output);
-        */
         lDesc.pinCount = 4;
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
-        /*
+
         lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.DIP6"; // IC with 6 Pins
+        lDesc.typeName = "DIP IC 6 Pins";
+        lDesc.circuitTypeName = "DIP6";
         lDesc.type = CircuitDescription.Type.DIP;
-        lDesc.pins.add(CircuitDescription.PinMode.Output, "out_door1");
-        lDesc.pins.add(CircuitDescription.PinMode.Output, "out_pump");
-        lDesc.pins.add(CircuitDescription.PinMode.Output, "out_door2");
-        lDesc.pins.add(CircuitDescription.PinMode.NotConnected);
-        lDesc.pins.add(CircuitDescription.PinMode.Input, "in_door1");
-        lDesc.pins.add(CircuitDescription.PinMode.NotConnected);
-        lDesc.pins.add(CircuitDescription.PinMode.Input, "in_door2");
-        lDesc.pins.add(CircuitDescription.PinMode.NotConnected);
+        lDesc.pinCount = 6;
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
-        lDesc.activate();
-        */
+        lDesc.createAndActivateXZ();
+
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.DIP8"; // IC with 8 Pins
+        lDesc.typeName = "DIP IC 8 Pins";
+        lDesc.circuitTypeName = "DIP8";
+        lDesc.type = CircuitDescription.Type.DIP;
+        lDesc.pinCount = 8;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
         List<World> lWorlds = getServer().getWorlds();
         for(World lWorld : lWorlds) {
             DBs.getDB(lWorld);
