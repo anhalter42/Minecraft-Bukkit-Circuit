@@ -41,6 +41,8 @@ public class Circuit extends JavaPlugin {
         CircuitBuildingHandler lHandler = new CircuitBuildingHandler(this);
 
         registerCircuitHandler(new CircuitHandler42M00());
+        registerCircuitHandler(new CircuitHandler42M01());
+        registerCircuitHandler(new CircuitHandler42M02());
         CircuitDescription lDesc;
         
         BuildingDetector lDetector = framework.getBuildingDetector();

@@ -55,7 +55,7 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
             CircuitBuilding lCircuit = new CircuitBuilding();
             lCircuit.cloneFrom(aBuilding);
             CircuitDescription lCDesc = (CircuitDescription)lCircuit.description;
-            lPlayer.sendMessage("Circuit type " + lCDesc.circuitTypeName + " found.");
+            lPlayer.sendMessage("Circuit design " + lCDesc.circuitTypeName + " found.");
             Sign lSign = (Sign)lCircuit.getBlock("sign").position.getBlock(lWorld).getState();
             String[] lSignLines = lSign.getLines();
             if (lSignLines.length > 1) {
@@ -66,6 +66,7 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
                 lCircuit.signLine3 = lSign.getLine(3);
             }
             if (checkPins(lCircuit, lSignLines[0], aEvent.getPlayer())) {
+                lPlayer.sendMessage("Circuit type " + lCircuit.circuitType + " found.");
                 lDB.addRecord(lCircuit);
                 lFound = true;
             }
@@ -90,25 +91,32 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
     protected boolean checkPins(CircuitBuilding aCircuit, String aHandlerName, Player aPlayer) {
         if (aHandlerName != null && !aHandlerName.isEmpty()) {
             CircuitHandler lHandler = plugin.circuitHandlers.get(aHandlerName);
-            if (lHandler.typeName.equals(((CircuitDescription)aCircuit.description).circuitTypeName)) {
-                ArrayList<String> lFails = new ArrayList<String>();
-                if (lHandler.acceptPins(aCircuit, lFails)) {
-                    aCircuit.circuitType = lHandler.name;
-                    return true;
+            if (lHandler == null) {
+                if (aPlayer != null) {
+                    aPlayer.sendMessage("Circuit " + aHandlerName + " unknown!");
+                }
+                return false;
+            } else {
+                if (lHandler.typeName.equals(((CircuitDescription)aCircuit.description).circuitTypeName)) {
+                    ArrayList<String> lFails = new ArrayList<String>();
+                    if (lHandler.acceptPins(aCircuit, lFails)) {
+                        aCircuit.circuitType = lHandler.name;
+                        return true;
+                    } else {
+                        if (aPlayer != null) {
+                            aPlayer.sendMessage("Circuit " + lHandler.name + " has a different pin assignments (check levers)!");
+                            for(String lFail : lFails) {
+                                aPlayer.sendMessage(lFail);
+                            }
+                        }
+                        return false;
+                    }
                 } else {
                     if (aPlayer != null) {
-                        aPlayer.sendMessage("Circuit " + lHandler.name + " has a different pin assignments (check levers)!");
-                        for(String lFail : lFails) {
-                            aPlayer.sendMessage(lFail);
-                        }
+                        aPlayer.sendMessage("Circuit " + lHandler.name + " needs to be type " + lHandler.typeName);
                     }
                     return false;
                 }
-            } else {
-                if (aPlayer != null) {
-                    aPlayer.sendMessage("Circuit " + lHandler.name + " needs to be type " + lHandler.typeName);
-                }
-                return false;
             }
         } else {
             if (aPlayer != null) {
