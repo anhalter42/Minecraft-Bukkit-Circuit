@@ -5,8 +5,11 @@ Ziel
 ----
 
 Einfache kleine Schaltkreise sollen vordefiniert sein, um bestimmtes Verhalten leichter zu erreichen.
-Alles kann natürlich mit entsprechenden Redstone Schaltungen erreicht werden. DIese sind allerdings sehr
+Alles kann natürlich mit entsprechenden Redstone Schaltungen erreicht werden. Diese sind allerdings sehr
 groß und unheimlich schwer aufzubauen.
+Im Wiki sind die Schaltkreise erklärt.
+
+https://github.com/anhalter42/Minecraft-Bukkit-Circuit/wiki
 
 Zeichenerklärung
 ----------------
