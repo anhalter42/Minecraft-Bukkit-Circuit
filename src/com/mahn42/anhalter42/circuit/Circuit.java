@@ -36,7 +36,7 @@ public class Circuit extends JavaPlugin {
         framework.registerSaver(DBs);
         
         circuitTask = new CircuitTask(this);
-        getServer().getScheduler().scheduleAsyncRepeatingTask(this, circuitTask, 10, 80);
+        getServer().getScheduler().scheduleAsyncRepeatingTask(this, circuitTask, 20, 1);
         
         CircuitBuildingHandler lHandler = new CircuitBuildingHandler(this);
 

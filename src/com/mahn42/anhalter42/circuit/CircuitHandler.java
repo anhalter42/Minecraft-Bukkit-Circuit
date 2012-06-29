@@ -130,8 +130,10 @@ public class CircuitHandler {
             }
         }
         lPin.newValue = aValue;
+        /*
         if (lPin.newValue != lPin.oldValue) {
             Logger.getLogger("CircuitHandler").info(this.getClass().getSimpleName() + ": set pin '" + aName + "' to " + aValue);
         }
+        */
     }
 }

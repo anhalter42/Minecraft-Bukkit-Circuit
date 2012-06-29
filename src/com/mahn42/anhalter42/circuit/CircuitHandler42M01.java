@@ -19,7 +19,29 @@ public class CircuitHandler42M01 extends CircuitHandler {
     
     @Override
     protected void tick() {
-        setPin("pin3", fContext.pins.get("pin1").newValue | fContext.pins.get("pin2").newValue);
-        setPin("pin4", !(fContext.pins.get("pin1").newValue | fContext.pins.get("pin2").newValue));
+        CircuitPin lPin1 = fContext.pins.get("pin1");
+        CircuitPin lPin2 = fContext.pins.get("pin2");
+        int lWaitTicks = fContext.circuit.getNamedValueAsInt("waitticks");
+        // hat sich ein eingang geändert?
+        if ((lPin1.oldValue != lPin1.newValue) || (lPin2.oldValue != lPin2.newValue)) {
+            if (!fContext.circuit.signLine1.isEmpty()) {
+                try {
+                    lWaitTicks = Integer.parseInt(fContext.circuit.signLine1);
+                } catch (Exception ex) {
+                    lWaitTicks = 0;
+                }
+            } else {
+                lWaitTicks = 0;
+            }
+        }
+        if (lWaitTicks > 0) {
+            lWaitTicks--;
+        }
+        if (lWaitTicks == 0) {
+            setPin("pin3", lPin1.newValue || lPin2.newValue);
+            setPin("pin4", !(lPin1.newValue || lPin2.newValue));
+            lWaitTicks = -1; // finish
+        }
+        fContext.circuit.setNamedValueAsInt("waitticks", lWaitTicks);
     }
 }

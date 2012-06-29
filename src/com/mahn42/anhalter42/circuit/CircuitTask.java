@@ -83,7 +83,7 @@ public class CircuitTask implements Runnable {
                     lContext.pins.put(lCPin.name, lCPin);
                 }
                 lCPin.newValue = lChange.newCurrent > 0;
-                plugin.getLogger().info("red stone input change on pin " + lCPin.name + " to " + lCPin.newValue);
+                //plugin.getLogger().info("red stone input change on pin " + lCPin.name + " to " + lCPin.newValue);
             }
         }
         //loop over all circuits
@@ -124,7 +124,10 @@ public class CircuitTask implements Runnable {
                         
                         for(CircuitPin lCPin : lContext.pins.values()) {
                             if (lCPin.newValue != lCPin.oldValue) {
-                                setPin(lSyncList, lCircuit.getBlock(lHandler.pins.get(lCPin.name).pinName).position, lCPin.newValue);
+                                CircuitHandler.Pin lHPin = lHandler.pins.get(lCPin.name);
+                                if (lHPin.mode == CircuitHandler.PinMode.Output) {
+                                    setPin(lSyncList, lCircuit.getBlock(lHPin.pinName).position, lCPin.newValue);
+                                }
                             }
                         }
                         String lnewPinValues = null;
@@ -154,26 +157,28 @@ public class CircuitTask implements Runnable {
         if (lBlock.getType().equals(Material.LEVER)) {
             if (aNewValue) {
                 aSyncList.add(lPos, Material.LEVER, (byte)(lBlock.getData() | (byte)0x8), true);
-                /*
-                for(BlockPosition lUPos : new BlockPositionWalkAround(lPos, BlockPositionDelta.HorizontalAndVertical)) {
+                // update red stone wire in environment
+                for(BlockPosition lUPos : new BlockPositionWalkAround(lPos, BlockPositionDelta.HorizontalAndVerticalAndDiagonal)) {
                     Block lBlockPin = lUPos.getBlock(aSyncList.world);
                     if (lBlockPin.getType().equals(Material.REDSTONE_WIRE)) {
-                        aSyncList.add(lUPos, lBlockPin.getType(), (byte)0xF, true);
+                        //plugin.getLogger().info("found red stone @ " + lBlockPin);
+                        aSyncList.add(lUPos, Material.REDSTONE_WIRE, (byte)0xF, true);
                     }
                 }
-                */
-                plugin.getLogger().info("set lever at " + lPos + " true");
+                
+                //plugin.getLogger().info("set lever at " + lPos + " true");
             } else {
                 aSyncList.add(lPos, Material.LEVER, (byte)(lBlock.getData() & (byte)0xF7), true);
-                /*
-                for(BlockPosition lUPos : new BlockPositionWalkAround(lPos, BlockPositionDelta.HorizontalAndVertical)) {
+                // update red stone wire in environment
+                for(BlockPosition lUPos : new BlockPositionWalkAround(lPos, BlockPositionDelta.HorizontalAndVerticalAndDiagonal)) {
                     Block lBlockPin = lUPos.getBlock(aSyncList.world);
                     if (lBlockPin.getType().equals(Material.REDSTONE_WIRE)) {
-                        aSyncList.add(lUPos, lBlockPin.getType(), (byte)0x0, true);
+                        //plugin.getLogger().info("found red stone @ " + lBlockPin);
+                        aSyncList.add(lUPos, Material.REDSTONE_WIRE, (byte)0x0, true);
                     }
                 }
-                */
-                plugin.getLogger().info("set lever at " + lPos + " false");
+                
+                //plugin.getLogger().info("set lever at " + lPos + " false");
             }
         } else {
             plugin.getLogger().info("no lever at " + lPos);

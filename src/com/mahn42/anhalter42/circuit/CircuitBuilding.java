@@ -62,8 +62,36 @@ public class CircuitBuilding extends Building{
             String[] lNVs = lNamedValues.split("\\|");
             for(String lNV : lNVs) {
                 String[] lNVLine = lNV.split("\\,");
-                namedValues.put(lNVLine[0], lNVLine[1]);
+                namedValues.put(lNVLine[0], lNVLine.length > 1 ? lNVLine[1] : "");
             }
         }
     }
+
+    public String getNamedValue(String aName) {
+        String lResult = namedValues.get(aName);
+        if (lResult == null) {
+            lResult = "";
+            namedValues.put(aName, lResult);
+        }
+        return lResult;
+    }
+
+    public int getNamedValueAsInt(String aName) {
+        int lResult;
+        try {
+            lResult = Integer.parseInt(getNamedValue(aName));
+        } catch (Exception ex) {
+            lResult = 0;
+        }
+        return lResult;
+    }
+
+    public void setNamedValue(String aName, String aValue) {
+        namedValues.put(aName, aValue);
+    }
+
+    public void setNamedValueAsInt(String aName, int aValue) {
+        setNamedValue(aName, new Integer(aValue).toString());
+    }
+
 }
