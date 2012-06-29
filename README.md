@@ -11,6 +11,13 @@ Im Wiki sind die Schaltkreise erklärt.
 
 https://github.com/anhalter42/Minecraft-Bukkit-Circuit/wiki
 
+Anforderungen
+-------------
+
+Es wird das Plugin Minecraft-Bukkit-Mahn42-Framework benötigt:
+
+https://github.com/Mahn42/Minecraft-Bukkit-Mahn42-Framework
+
 Zeichenerklärung
 ----------------
 
