@@ -67,9 +67,11 @@ public class CircuitDescription extends BuildingDescription {
     
     @Override
     public void activate() {
-        switch (type) {
-            case DIP: makeDIP(); break;
-            case QFP: makeQFP(); break;
+        if (blocks.size() == 0) {
+            switch (type) {
+                case DIP: makeDIP(); break;
+                case QFP: makeQFP(); break;
+            }
         }
         super.activate();
     }
@@ -109,6 +111,7 @@ public class CircuitDescription extends BuildingDescription {
         BlockDescription lLB, lRT, lLast = null;
         RelatedTo lRel;
         lBlock = newBlockDescription("lt");
+        lBlock.detectSensible = true;
         lBlock.materials.add(Material.WOOL, WoolColors.black);
         lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rt");
         lRel.materials.add(Material.WOOL, WoolColors.black);

@@ -56,7 +56,7 @@ public class Circuit extends JavaPlugin {
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
-
+        /*
         lDesc = new CircuitDescription();
         lDesc.name = "Circuit.DIP6"; // IC with 6 Pins
         lDesc.typeName = "DIP IC 6 Pins";
@@ -76,7 +76,7 @@ public class Circuit extends JavaPlugin {
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
-
+        */
         List<World> lWorlds = getServer().getWorlds();
         for(World lWorld : lWorlds) {
             DBs.getDB(lWorld);
