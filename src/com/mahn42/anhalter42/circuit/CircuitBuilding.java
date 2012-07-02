@@ -49,6 +49,9 @@ public class CircuitBuilding extends Building{
             }
         }
         aCols.add(lNamedValues == null ? "" : lNamedValues);
+        aCols.add(signLine1);
+        aCols.add(signLine2);
+        aCols.add(signLine3);
     }
 
     @Override
@@ -65,6 +68,9 @@ public class CircuitBuilding extends Building{
                 namedValues.put(lNVLine[0], lNVLine.length > 1 ? lNVLine[1] : "");
             }
         }
+        signLine1 = aCols.pop();
+        signLine2 = aCols.pop();
+        signLine3 = aCols.pop();
     }
 
     public String getNamedValue(String aName) {
