@@ -79,8 +79,28 @@ public class Circuit extends JavaPlugin {
         lDesc.createAndActivateXZ();
 
         lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.DIP10"; // IC with 10 Pins
+        lDesc.typeName = "DIP IC 10 Pins";
+        lDesc.circuitTypeName = "DIP10";
+        lDesc.type = CircuitDescription.Type.DIP;
+        lDesc.pinCount = 10;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.DIP12"; // IC with 12 Pins
+        lDesc.typeName = "DIP IC 12 Pins";
+        lDesc.circuitTypeName = "DIP12";
+        lDesc.type = CircuitDescription.Type.DIP;
+        lDesc.pinCount = 12;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
+        lDesc = new CircuitDescription();
         lDesc.name = "Circuit.QFP4"; // IC with 4 Pins
-        lDesc.typeName = "DIP IC 4 Pins";
+        lDesc.typeName = "QFP IC 4 Pins";
         lDesc.circuitTypeName = "QFP4";
         lDesc.type = CircuitDescription.Type.QFP;
         lDesc.pinCount = 4;
@@ -90,7 +110,7 @@ public class Circuit extends JavaPlugin {
         
         lDesc = new CircuitDescription();
         lDesc.name = "Circuit.QFP8"; // IC with 8 Pins
-        lDesc.typeName = "DIP IC 8 Pins";
+        lDesc.typeName = "QFP IC 8 Pins";
         lDesc.circuitTypeName = "QFP8";
         lDesc.type = CircuitDescription.Type.QFP;
         lDesc.pinCount = 8;
@@ -99,8 +119,8 @@ public class Circuit extends JavaPlugin {
         lDesc.createAndActivateXZ();
         
         lDesc = new CircuitDescription();
-        lDesc.name = "Circuit.QFP12"; // IC with 4 Pins
-        lDesc.typeName = "DIP IC 12 Pins";
+        lDesc.name = "Circuit.QFP12"; // IC with 12 Pins
+        lDesc.typeName = "QFP IC 12 Pins";
         lDesc.circuitTypeName = "QFP12";
         lDesc.type = CircuitDescription.Type.QFP;
         lDesc.pinCount = 12;
@@ -108,6 +128,26 @@ public class Circuit extends JavaPlugin {
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
         
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.QFP16"; // IC with 16 Pins
+        lDesc.typeName = "QFP IC 16 Pins";
+        lDesc.circuitTypeName = "QFP16";
+        lDesc.type = CircuitDescription.Type.QFP;
+        lDesc.pinCount = 16;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+        
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.DFP8"; // IC with 8 Pins
+        lDesc.typeName = "DFP IC 8 Pins";
+        lDesc.circuitTypeName = "DFP8";
+        lDesc.type = CircuitDescription.Type.DFP;
+        lDesc.pinCount = 8;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
         // access all world, so they are loaded and can work in CircuitTask
         List<World> lWorlds = getServer().getWorlds();
         for(World lWorld : lWorlds) {

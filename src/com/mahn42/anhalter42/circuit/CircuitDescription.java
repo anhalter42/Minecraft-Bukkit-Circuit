@@ -19,7 +19,9 @@ public class CircuitDescription extends BuildingDescription {
 
     public enum Type {
         DIP, // Dual in Line (Rechteck mit Pins aun 2 Seiten)
-        QFP  // Quad mit Pins an allen Seiten (Quadrat)
+        QFP, // Quad mit Pins an allen Seiten (Quadrat)
+        DFP,  // Dual Footed Package
+        Custom // free style
     }
 
     /*
@@ -71,6 +73,7 @@ public class CircuitDescription extends BuildingDescription {
             switch (type) {
                 case DIP: makeDIP(); break;
                 case QFP: makeQFP(); break;
+                case DFP: makeDFP(); break;
             }
         }
         super.activate();
@@ -106,7 +109,7 @@ public class CircuitDescription extends BuildingDescription {
     private void makeDIP() {
         int lCount = pinCount;
         lCount = ((lCount + 1) >> 1) << 1; 
-        int lWidth = lCount >> 1;
+        int lWidth = lCount - 2;
         BlockDescription lBlock;
         BlockDescription lLB, lRT, lLast = null;
         RelatedTo lRel;
@@ -256,6 +259,93 @@ public class CircuitDescription extends BuildingDescription {
                 lRel = lLast.newRelatedTo(new Vector(-1, 0, 1), lBlock.name);
             } else {
                 lRel = lLast.newRelatedTo(new Vector( 0, 0, 2), lBlock.name);
+                lRel.materials.add(Material.AIR);
+                lRel.minDistance = 1;
+            }
+            lLast = lBlock;
+        }
+    }
+
+    private void makeDFP() {
+        int lCount = pinCount;
+        lCount = ((lCount + 1) >> 1) << 1; 
+        int lWidth = lCount - 2;
+        BlockDescription lBlock;
+        BlockDescription lLB, lRT, lLast = null;
+        RelatedTo lRel;
+        lBlock = newBlockDescription("lt");
+        lBlock.detectSensible = true;
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+        lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rt");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+        lRel = lBlock.newRelatedTo(new Vector(0, 0, 2), "lb");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = 1;
+        lRel = lBlock.newRelatedTo(new Vector(0, lWidth, 0), "ltu");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+        
+        lBlock = newBlockDescription("rt"); lRT = lBlock;
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+        lRel = lBlock.newRelatedTo(new Vector(0, 0, 2), "rb");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = 1;
+        lRel = lBlock.newRelatedTo(new Vector(0, lWidth, 0), "rtu");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+        
+        lBlock = newBlockDescription("lb"); lLB = lBlock;
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+        lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rb");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+        lRel = lBlock.newRelatedTo("sign", RelatedPosition.Nearby, 1);
+        lRel = lBlock.newRelatedTo(new Vector(0, lWidth, 0), "lbu");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+        
+        lBlock = newBlockDescription("rb");
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+        lRel = lBlock.newRelatedTo(new Vector(0, lWidth, 0), "rbu");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+
+        lBlock = newBlockDescription("sign");
+        lBlock.materials.add(Material.SIGN_POST);
+        
+        lBlock = newBlockDescription("ltu");
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+
+        lBlock = newBlockDescription("rtu");
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+
+        lBlock = newBlockDescription("lbu");
+        lBlock.materials.add(Material.REDSTONE_LAMP_OFF);
+
+        lBlock = newBlockDescription("rbu");
+        lBlock.materials.add(Material.REDSTONE_LAMP_OFF);
+
+        String lNewPin = null;
+        int lDir = 1;
+        int lPos = 0;
+        for(lPos = 0; lPos < lCount; lPos++) {
+            if (lPos == (lCount / 2)) {
+                lDir = -1;
+                lLast = null;
+            }
+            lNewPin = "pin" + (lPos + 1);
+            lBlock = newBlockDescription(lNewPin);
+            lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.redstoneSensible = true;
+            if (lLast == null) {
+                if (lDir > 0) {
+                    lLB.newRelatedTo(new Vector(0, 0, 1), lNewPin);
+                } else {
+                    lRT.newRelatedTo(new Vector(0, 0, -1), lNewPin);
+                }
+            } else {
+                lRel = lLast.newRelatedTo(new Vector(2 * lDir,0,0), lBlock.name);
                 lRel.materials.add(Material.AIR);
                 lRel.minDistance = 1;
             }
