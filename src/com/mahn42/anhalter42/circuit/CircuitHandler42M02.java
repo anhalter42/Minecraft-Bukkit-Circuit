@@ -4,13 +4,12 @@
  */
 package com.mahn42.anhalter42.circuit;
 
-import java.util.logging.Logger;
-
 /**
  *
  * @author andre
  */
 public class CircuitHandler42M02 extends CircuitHandler {
+    
     public CircuitHandler42M02() {
         super("DIP4", "42M02");
         pins.add(PinMode.Input);

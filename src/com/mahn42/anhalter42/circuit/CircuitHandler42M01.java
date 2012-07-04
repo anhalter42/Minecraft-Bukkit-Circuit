@@ -9,6 +9,7 @@ package com.mahn42.anhalter42.circuit;
  * @author andre
  */
 public class CircuitHandler42M01 extends CircuitHandler {
+
     public CircuitHandler42M01() {
         super("DIP4", "42M01");
         pins.add(PinMode.Input);
