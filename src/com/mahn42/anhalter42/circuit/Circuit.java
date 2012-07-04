@@ -57,7 +57,7 @@ public class Circuit extends JavaPlugin {
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
-        /*
+
         lDesc = new CircuitDescription();
         lDesc.name = "Circuit.DIP6"; // IC with 6 Pins
         lDesc.typeName = "DIP IC 6 Pins";
@@ -77,7 +77,38 @@ public class Circuit extends JavaPlugin {
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
-        */
+
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.QFP4"; // IC with 4 Pins
+        lDesc.typeName = "DIP IC 4 Pins";
+        lDesc.circuitTypeName = "QFP4";
+        lDesc.type = CircuitDescription.Type.QFP;
+        lDesc.pinCount = 4;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+        
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.QFP8"; // IC with 8 Pins
+        lDesc.typeName = "DIP IC 8 Pins";
+        lDesc.circuitTypeName = "QFP8";
+        lDesc.type = CircuitDescription.Type.QFP;
+        lDesc.pinCount = 8;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+        
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.QFP12"; // IC with 4 Pins
+        lDesc.typeName = "DIP IC 12 Pins";
+        lDesc.circuitTypeName = "QFP12";
+        lDesc.type = CircuitDescription.Type.QFP;
+        lDesc.pinCount = 12;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+        
+        // access all world, so they are loaded and can work in CircuitTask
         List<World> lWorlds = getServer().getWorlds();
         for(World lWorld : lWorlds) {
             DBs.getDB(lWorld);
