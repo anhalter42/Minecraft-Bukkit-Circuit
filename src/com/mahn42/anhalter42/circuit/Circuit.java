@@ -148,6 +148,7 @@ public class Circuit extends JavaPlugin {
         registerCircuitHandler(new CircuitHandler42M01());
         registerCircuitHandler(new CircuitHandler42M02());
         registerCircuitHandler(new CircuitHandler42M555());
+        registerCircuitHandler(new CircuitHandler42M1000());
         registerCircuitHandler(new CircuitHandler42M2007());
         
         // access all world, so they are loaded and can work in CircuitTask
