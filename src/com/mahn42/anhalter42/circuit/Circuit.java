@@ -151,6 +151,16 @@ public class Circuit extends JavaPlugin {
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
 
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.DFP64"; // IC with 64 Pins
+        lDesc.typeName = "DFP IC 64 Pins";
+        lDesc.circuitTypeName = "DFP64";
+        lDesc.type = CircuitDescription.Type.DFP;
+        lDesc.pinCount = 64;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
         registerCircuitHandler(new CircuitHandler42M00());
         registerCircuitHandler(new CircuitHandler42M01());
         registerCircuitHandler(new CircuitHandler42M02());
