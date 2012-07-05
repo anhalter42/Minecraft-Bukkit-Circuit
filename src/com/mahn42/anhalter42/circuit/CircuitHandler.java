@@ -5,12 +5,10 @@
 package com.mahn42.anhalter42.circuit;
 
 import com.mahn42.framework.BuildingBlock;
-import com.mahn42.framework.BuildingDescription.RelatedTo;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import sun.nio.cs.ext.ISCII91;
 
 /**
  *
