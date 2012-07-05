@@ -156,101 +156,111 @@ public class CircuitDescription extends BuildingDescription {
                 }
             } else {
                 lRel = lLast.newRelatedTo(new Vector(2 * lDir,0,0), lBlock.name);
+                lRel.materials.add(Material.AIR);
                 lRel.minDistance = 1;
             }
             lLast = lBlock;
         }
     }
     
-    // In1, In2 ...
-    // Out1, Out2 ...   OutLever1, OutLever2 ...
-    // NC1, NC2 ...
-    /*
-    private void makeDIP() {
-        int lCount = pins.size();
-        lCount = ((lCount + 1) >> 1) << 1; 
-        int lWidth = lCount >> 1;
+    private void makeQFP() {
+        int lCount = pinCount;
+        lCount = ((lCount + 3) >> 2) << 2; 
+        int lWidth = ((lCount >> 2) << 1);
         BlockDescription lBlock;
-        BlockDescription lLB, lRT, lLast = null;
+        BlockDescription lLB, lRT, lLT, lRB, lLast = null;
         RelatedTo lRel;
-        lBlock = newBlockDescription("lt");
+        lBlock = newBlockDescription("lt"); lLT = lBlock;
+        lBlock.detectSensible = true;
         lBlock.materials.add(Material.WOOL, WoolColors.black);
         lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rt");
         lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = lWidth - 1;
-        lBlock.newRelatedTo(new Vector(0, 0, 1), "lb");
-        
-        lBlock = newBlockDescription("rt"); lRT = lBlock;
-        lBlock.materials.add(Material.WOOL, WoolColors.black);
-        lBlock.newRelatedTo(new Vector(0, 0, 1), "rb");
-        
-        lBlock = newBlockDescription("lb"); lLB = lBlock;
-        lBlock.materials.add(Material.WOOL, WoolColors.black);
-        lBlock.signSensible = true;
-        lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rb");
+        lRel = lBlock.newRelatedTo(new Vector(0, 0, lWidth), "lb");
         lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = lWidth - 1;
         
-        lBlock = newBlockDescription("rb");
+        lBlock = newBlockDescription("rt"); lRT = lBlock;
         lBlock.materials.add(Material.WOOL, WoolColors.black);
-        //String lLastPin = null;
+        lRel = lBlock.newRelatedTo(new Vector(0, 0, lWidth), "rb");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+        
+        lBlock = newBlockDescription("lb"); lLB = lBlock;
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+        lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rb");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+        lRel = lBlock.newRelatedTo("sign", RelatedPosition.Nearby, 1);
+        
+        lBlock = newBlockDescription("rb"); lRB = lBlock;
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+
+        lBlock = newBlockDescription("sign");
+        lBlock.materials.add(Material.SIGN_POST);
+        
         String lNewPin = null;
-        int lDir = 1;
-        int lPos = 0;
-        for(Pin lPin : pins) {
-            if (lPos == (lCount / 2)) {
-                lDir = -1;
-                lLast = null;
-            }
-            lPos++;
-            switch (lPin.mode) {
-                case Input:
-                    inputCount++;
-                    if (lPin.name != null && !lPin.name.isEmpty())
-                        lNewPin = lPin.name;
-                    else
-                        lNewPin = "In" + inputCount;
-                    lBlock = newBlockDescription(lNewPin);
-                    lBlock.materials.add(Material.WOOL, WoolColors.gray);
-                    lBlock.redstoneSensible = true;
-                    break;
-                case Output:
-                    outputCount++;
-                    if (lPin.name != null && !lPin.name.isEmpty())
-                        lNewPin = lPin.name;
-                    else
-                        lNewPin = "Out" + outputCount;
-                    lBlock = newBlockDescription(lNewPin + "Lever");
-                    lBlock.materials.add(Material.LEVER);
-                    lBlock = newBlockDescription(lNewPin);
-                    lBlock.materials.add(Material.WOOL, WoolColors.gray);
-                    lBlock.newRelatedTo(new Vector(0, 1, 0), lNewPin + "Lever");
-                    break;
-                case NotConnected:
-                    ncCount++;
-                    if (lPin.name != null && !lPin.name.isEmpty())
-                        lNewPin = lPin.name;
-                    else
-                        lNewPin = "NC" + ncCount;
-                    lBlock = newBlockDescription(lNewPin);
-                    lBlock.materials.add(Material.WOOL, WoolColors.gray);
-                    break;
-            }
-            if (lLast == null) {
-                if (lDir > 0) {
-                    lLB.newRelatedTo(new Vector(0, 0, 1), lNewPin);
-                } else {
-                    lRT.newRelatedTo(new Vector(0, 0, -1), lNewPin);
-                }
+        int lSideCount = lCount / 4;
+        lLast = lLB;
+        for(int lPos = 0; lPos < lSideCount; lPos++) {
+            lNewPin = "pin" + (lPos + 1);
+            lBlock = newBlockDescription(lNewPin);
+            lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.redstoneSensible = true;
+            if (lPos == 0) {
+                lRel = lLast.newRelatedTo(new Vector( 1, 0, 1), lBlock.name);
             } else {
-                lRel = lLast.newRelatedTo(new Vector(2 * lDir,0,0), lBlock.name);
+                lRel = lLast.newRelatedTo(new Vector( 2, 0, 0), lBlock.name);
+                lRel.materials.add(Material.AIR);
                 lRel.minDistance = 1;
             }
             lLast = lBlock;
         }
-    }
-    */
-    private void makeQFP() {
+        lLast = lRB;
+        for(int lPos = 0; lPos < lSideCount; lPos++) {
+            lNewPin = "pin" + (lPos + 1 + lSideCount);
+            lBlock = newBlockDescription(lNewPin);
+            lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.redstoneSensible = true;
+            if (lPos == 0) {
+                lRel = lLast.newRelatedTo(new Vector( 1, 0,-1), lBlock.name);
+            } else {
+                lRel = lLast.newRelatedTo(new Vector( 0, 0,-2), lBlock.name);
+                lRel.materials.add(Material.AIR);
+                lRel.minDistance = 1;
+            }
+            lLast = lBlock;
+        }
+        lLast = lRT;
+        for(int lPos = 0; lPos < lSideCount; lPos++) {
+            lNewPin = "pin" + (lPos + 1 + 2 * lSideCount);
+            lBlock = newBlockDescription(lNewPin);
+            lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.redstoneSensible = true;
+            if (lPos == 0) {
+                lRel = lLast.newRelatedTo(new Vector(-1, 0,-1), lBlock.name);
+            } else {
+                lRel = lLast.newRelatedTo(new Vector(-2, 0, 0), lBlock.name);
+                lRel.materials.add(Material.AIR);
+                lRel.minDistance = 1;
+            }
+            lLast = lBlock;
+        }
+        lLast = lLT;
+        for(int lPos = 0; lPos < lSideCount; lPos++) {
+            lNewPin = "pin" + (lPos + 1 + 3 * lSideCount);
+            lBlock = newBlockDescription(lNewPin);
+            lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.redstoneSensible = true;
+            if (lPos == 0) {
+                lRel = lLast.newRelatedTo(new Vector(-1, 0, 1), lBlock.name);
+            } else {
+                lRel = lLast.newRelatedTo(new Vector( 0, 0, 2), lBlock.name);
+                lRel.materials.add(Material.AIR);
+                lRel.minDistance = 1;
+            }
+            lLast = lBlock;
+        }
     }
 
 }
