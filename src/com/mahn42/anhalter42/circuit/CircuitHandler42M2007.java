@@ -5,7 +5,6 @@
 package com.mahn42.anhalter42.circuit;
 
 import com.mahn42.anhalter42.circuit.CircuitFont.CircuitFontChar;
-import com.mahn42.framework.Framework;
 
 /**
  *
