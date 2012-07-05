@@ -7,7 +7,6 @@ package com.mahn42.anhalter42.circuit;
 import com.mahn42.framework.BuildingDescription;
 import com.mahn42.framework.Framework;
 import com.mahn42.framework.WoolColors;
-import java.util.ArrayList;
 import org.bukkit.Material;
 import org.bukkit.util.Vector;
 
