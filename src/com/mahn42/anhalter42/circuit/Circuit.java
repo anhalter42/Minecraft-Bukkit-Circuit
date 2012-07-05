@@ -63,7 +63,7 @@ public class Circuit extends JavaPlugin {
         lDesc.handler = lHandler;
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
-
+        
         lDesc = new CircuitDescription();
         lDesc.name = "Circuit.DIP8"; // IC with 8 Pins
         lDesc.typeName = "DIP IC 8 Pins";
