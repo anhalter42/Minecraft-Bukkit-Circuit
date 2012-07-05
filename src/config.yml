@@ -105,60 +105,100 @@ ASCII_7:
   -
     name: "A"
     lines:
-      - _XXXXX_
-      - X_____X
-      - X_____X
-      - XXXXXXX
-      - X_____X
-      - X_____X
-      - X_____X
+      - __XXXX_
+      - _X____X
+      - _X____X
+      - _XXXXXX
+      - _X____X
+      - _X____X
+      - _X____X
   -
     name: "B"
     lines:
-      - XXXXXX_
-      - X_____X
-      - X_____X
-      - XXXXXX_
-      - X_____X
-      - X_____X
-      - XXXXXX_
+      - _XXXXX_
+      - _X____X
+      - _X____X
+      - _XXXXX_
+      - _X____X
+      - _X____X
+      - _XXXXX_
   -
     name: "C"
     lines:
-      - _XXXXX_
-      - X_____X
-      - X______
-      - X______
-      - X______
-      - X_____X
-      - _XXXXX_
+      - __XXXX_
+      - _X____X
+      - _X_____
+      - _X_____
+      - _X_____
+      - _X____X
+      - __XXXX_
   -
     name: "D"
     lines:
-      - XXXXXX_
-      - X_____X
-      - X_____X
-      - X_____X
-      - X_____X
-      - X_____X
-      - XXXXXX_
+      - _XXXXX_
+      - _X____X
+      - _X____X
+      - _X____X
+      - _X____X
+      - _X____X
+      - _XXXXX_
   -
     name: "E"
     lines:
-      - XXXXXXX
-      - X______
-      - X______
-      - XXXXX__
-      - X______
-      - X______
-      - XXXXXXX
+      - _XXXXXX
+      - _X_____
+      - _X_____
+      - _XXXX__
+      - _X_____
+      - _X_____
+      - _XXXXXX
   -
     name: "F"
     lines:
-      - XXXXXXX
-      - X______
-      - X______
-      - XXXXX__
-      - X______
-      - X______
-      - X______
+      - _XXXXXX
+      - _X_____
+      - _X_____
+      - _XXXX__
+      - _X_____
+      - _X_____
+      - _X_____
+  -
+    name: "G"
+    lines:
+      - __XXXX_
+      - _X____X
+      - _X_____
+      - _X__XXX
+      - _X____X
+      - _X____X
+      - __XXXX_
+  -
+    name: "H"
+    lines:
+      - _X____X
+      - _X____X
+      - _X____X
+      - _XXXXXX
+      - _X____X
+      - _X____X
+      - _X____X
+  -
+    name: "I"
+    lines:
+      - __XXX__
+      - ___X___
+      - ___X___
+      - ___X___
+      - ___X___
+      - ___X___
+      - __XXX__
+  -
+    name: "J"
+    lines:
+      - __XXXX_
+      - ____X__
+      - ____X__
+      - ____X__
+      - ____X__
+      - ____X__
+      - __XX___
