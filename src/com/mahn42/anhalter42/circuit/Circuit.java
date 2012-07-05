@@ -10,6 +10,7 @@ import com.mahn42.framework.WorldDBList;
 import java.util.HashMap;
 import java.util.List;
 import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -19,8 +20,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Circuit extends JavaPlugin {
 
     public Framework framework;
+    public static Circuit plugin;
 
     public WorldDBList<CircuitBuildingDB> DBs;
+
+    public int configCircuitTicks = 1;
+    public CircuitFont configASCI_7 = new CircuitFont();
     
     public CircuitTask circuitTask;
     public HashMap<String, CircuitHandler> circuitHandlers = new HashMap<String, CircuitHandler>();
@@ -30,13 +35,15 @@ public class Circuit extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        plugin = this;
+        readCircuitConfig();
         framework = Framework.plugin;
         DBs = new WorldDBList<CircuitBuildingDB>(CircuitBuildingDB.class, this);
         
         framework.registerSaver(DBs);
         
         circuitTask = new CircuitTask(this);
-        getServer().getScheduler().scheduleAsyncRepeatingTask(this, circuitTask, 20, 1);
+        getServer().getScheduler().scheduleAsyncRepeatingTask(this, circuitTask, 20, configCircuitTicks);
         
         CircuitBuildingHandler lHandler = new CircuitBuildingHandler(this);
 
@@ -165,5 +172,13 @@ public class Circuit extends JavaPlugin {
     @Override
     public void onDisable() {
         getServer().getScheduler().cancelTasks(this);
+        plugin = null;
     }
+
+    private void readCircuitConfig() {
+        FileConfiguration lConfig = getConfig();
+        configCircuitTicks = lConfig.getInt("CircuitTicks", 1);
+        configASCI_7.load(lConfig.getList("ASCII_7"));
+    }
+
 }

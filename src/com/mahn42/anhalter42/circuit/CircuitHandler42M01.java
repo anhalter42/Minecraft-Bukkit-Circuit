@@ -20,8 +20,8 @@ public class CircuitHandler42M01 extends CircuitHandler {
     
     @Override
     protected void tick() {
-        CircuitPin lPin1 = fContext.pins.get("pin1");
-        CircuitPin lPin2 = fContext.pins.get("pin2");
+        CircuitPin lPin1 = getPin("pin1");
+        CircuitPin lPin2 = getPin("pin2");
         int lWaitTicks = fContext.circuit.getNamedValueAsInt("waitticks");
         // hat sich ein eingang geändert?
         if ((lPin1.oldValue != lPin1.newValue) || (lPin2.oldValue != lPin2.newValue)) {

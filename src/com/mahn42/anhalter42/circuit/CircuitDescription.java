@@ -280,7 +280,7 @@ public class CircuitDescription extends BuildingDescription {
         lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rt");
         lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = lWidth - 1;
-        lRel = lBlock.newRelatedTo(new Vector( 0, 1, 1), "lm");
+        lRel = lBlock.newRelatedTo(new Vector( 0, 1, 1), "out_1_1");
         lRel = lBlock.newRelatedTo(new Vector( 0, 0, 2), "lb");
         lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = 1;
@@ -328,14 +328,27 @@ public class CircuitDescription extends BuildingDescription {
         lRel.materials.add(Material.REDSTONE_LAMP_ON);
         lRel.minDistance = lWidth - 1;
 
-        lBlock = newBlockDescription("rtu");
-        lBlock.materials.add(Material.WOOL, WoolColors.black);
-        //lRel = lBlock.newRelatedTo(new Vector(0, 0, 1), "rtmu");
-
         lBlock = newBlockDescription("rbu");
         lBlock.materials.add(Material.REDSTONE_LAMP_OFF);
         lBlock.materials.add(Material.REDSTONE_LAMP_ON);
 
+        lBlock = newBlockDescription("rtu");
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+        //lRel = lBlock.newRelatedTo(new Vector(0, 0, 1), "rtmu");
+
+        for(int lX = 1; lX <= (lWidth+1) ; lX++) {
+            for(int lY = 1; lY <= (lWidth+1); lY++) {
+                lBlock = newBlockDescription(CircuitHandler.getPinAreaName("out", lX, lY));
+                lBlock.materials.add(Material.LEVER);
+                if (lY <= lWidth) {
+                    lRel = lBlock.newRelatedTo(new Vector( 0, 1, 0), CircuitHandler.getPinAreaName("out", lX , lY+1));
+                }
+                if (lY == 1 && lX <= lWidth) {
+                    lRel = lBlock.newRelatedTo(new Vector( 1, 0, 0), CircuitHandler.getPinAreaName("out", lX+1, lY));
+                }
+            }
+        }
+        /*
         lBlock = newBlockDescription("lm");
         lBlock.materials.add(Material.LEVER);
         lRel = lBlock.newRelatedTo(new Vector(lWidth, lWidth, 0), "rtmu", RelatedPosition.AreaXZ);
@@ -344,6 +357,7 @@ public class CircuitDescription extends BuildingDescription {
 
         lBlock = newBlockDescription("rtmu");
         lBlock.materials.add(Material.LEVER);
+        */
 
         String lNewPin = null;
         int lDir = 1;

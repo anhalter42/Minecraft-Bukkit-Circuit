@@ -30,7 +30,7 @@ public class CircuitHandler {
         public PinMode mode;
         public String name;
         public String pinName;
-        public String pinNameArea;
+        public boolean isArea = false;
         public int areaX;
         public int areaY;
         
@@ -60,15 +60,14 @@ public class CircuitHandler {
             return add(new Pin(aMode, aName, aPinName));
         }
         
-        public void addArea(PinMode aMode, String aName, String aBlockStart, String aBlockEnd, int aLength) {
-            for(int x = 0; x < aLength; x++) {
-                for(int y = 0; y < aLength; y++) {
-                    Pin lPin = new Pin(aMode, aName);
-                    lPin.name = getPinAreaName(aName, x, y);
-                    lPin.pinName = aBlockStart;
-                    lPin.pinNameArea = aBlockEnd;
+        public void addArea(PinMode aMode, String aName, int aLength) {
+            for(int x = 1; x <= aLength; x++) {
+                for(int y = 1; y <= aLength; y++) {
+                    Pin lPin = new Pin(aMode, getPinAreaName(aName, x, y));
+                    lPin.isArea = true;
                     lPin.areaX = x;
                     lPin.areaY = y;
+                    add(lPin);
                 }
             }
         }
@@ -127,10 +126,14 @@ public class CircuitHandler {
     public boolean acceptPins(CircuitBuilding aCircuit, ArrayList<String> aFails) {
         boolean lResult = true;
         for(Pin lPin : pins) {
-            if (lPin.pinNameArea == null || lPin.pinNameArea.isEmpty()) {
-                BuildingBlock lBBlock = aCircuit.getBlock(lPin.pinName);
+            BuildingBlock lBBlock = aCircuit.getBlock(lPin.pinName);
+            if (lBBlock != null) {
                 Block lBlock;
-                lBlock = lBBlock.position.getBlockAt(aCircuit.world, 0, 1, 0);
+                if (lPin.isArea) {
+                    lBlock = lBBlock.position.getBlock(aCircuit.world);
+                } else {
+                    lBlock = lBBlock.position.getBlockAt(aCircuit.world, 0, 1, 0);
+                }
                 switch (lPin.mode) {
                     case Output: // a Lever must there
                         if (!lBlock.getType().equals(Material.LEVER)) {
@@ -147,9 +150,23 @@ public class CircuitHandler {
                     case NotConnected: // can be any
                         break;
                 }
+            } else {
+                Logger.getLogger("CircuitHandler").info("block '" + lPin.pinName + "' not found for pin '" + lPin.name + "'!");
             }
         }
         return lResult;
+    }
+    
+    protected CircuitPin getPin(String aName) {
+        return fContext.pins.get(aName);
+    }
+    
+    protected boolean getPinValue(String aName) {
+        return fContext.pins.get(aName).oldValue;
+    }
+    
+    protected int getPinValueInt(String aName) {
+        return fContext.pins.get(aName).oldValue ? 1 : 0;
     }
     
     protected void setPin(String aName, boolean aValue) {
@@ -188,29 +205,5 @@ public class CircuitHandler {
             }
         }
         lPin.newValue = aValue;
-/*
-            if (lPin.pinNameArea != null && !lPin.pinNameArea.isEmpty()) {
-                RelatedTo lRel = lBBlock.description.getRelation(lPin.pinNameArea);
-                if (lRel != null) {
-                    switch(lRel.position) {
-                        case AreaXZ:
-                            lBlock = lBBlock.position.getBlockAt(aCircuit.world, 0, 1, 0);
-                            break;
-                        case AreaYX:
-                            lBlock = lBBlock.position.getBlockAt(aCircuit.world, 0, 1, 0);
-                            break;
-                        case AreaYZ:
-                            lBlock = lBBlock.position.getBlockAt(aCircuit.world, 0, 1, 0);
-                            break;
-                        default:
-                            lBlock = lBBlock.position.getBlockAt(aCircuit.world, 0, 1, 0);
-                            break;
-                    }
-                } else {
-                    lBlock = lBBlock.position.getBlockAt(aCircuit.world, 0, 1, 0);
-                }
-            } else {
-
- */
     }
 }

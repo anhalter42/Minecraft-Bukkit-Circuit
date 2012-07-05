@@ -1,0 +1,164 @@
+## YAML Template.
+---
+CircuitTicks: 1
+ASCII_7:
+  - 
+    name: "0"
+    lines:
+      - __XXX__
+      - _X___X_
+      - _X___X_
+      - _X___X_
+      - _X___X_
+      - _X___X_
+      - __XXX__
+  -
+    name: "1"
+    lines:
+      - ____X__
+      - ___XX__
+      - __X_X__
+      - _X__X__
+      - ____X__
+      - ____X__
+      - ____X__
+  -
+    name: "2"
+    lines:
+      - __XXX__
+      - _X___X_
+      - _____X_
+      - ___XX__
+      - __X____
+      - _X_____
+      - _XXXXX_
+  -
+    name: "3"
+    lines:
+      - __XXX__
+      - _X___X_
+      - _____X_
+      - ___XX__
+      - _____X_
+      - _X___X_
+      - __XXX__
+  -
+    name: "4"
+    lines:
+      - _____X_
+      - ____XX_
+      - ___X_X_
+      - __X__X_
+      - _XXXXXX
+      - _____X_
+      - _____X_
+  -
+    name: "5"
+    lines:
+      - _XXXXX_
+      - _X_____
+      - _X_____
+      - __XXX__
+      - _____X_
+      - _X___X_
+      - __XXX__
+  -
+    name: "6"
+    lines:
+      - __XXX__
+      - _X_____
+      - _X_____
+      - _XXXX__
+      - _X___X_
+      - _X___X_
+      - __XXX__
+  -
+    name: "7"
+    lines:
+      - _XXXXX_
+      - _____X_
+      - ____X__
+      - ___X___
+      - ___X___
+      - ___X___
+      - ___X___
+  -
+    name: "8"
+    lines:
+      - __XXX__
+      - _X___X_
+      - _X___X_
+      - __XXX__
+      - _X___X_
+      - _X___X_
+      - __XXX__
+  -
+    name: "9"
+    lines:
+      - __XXX__
+      - _X___X_
+      - _X___X_
+      - __XXXX_
+      - _____X_
+      - _____X_
+      - __XXX__
+  -
+    name: "A"
+    lines:
+      - _XXXXX_
+      - X_____X
+      - X_____X
+      - XXXXXXX
+      - X_____X
+      - X_____X
+      - X_____X
+  -
+    name: "B"
+    lines:
+      - XXXXXX_
+      - X_____X
+      - X_____X
+      - XXXXXX_
+      - X_____X
+      - X_____X
+      - XXXXXX_
+  -
+    name: "C"
+    lines:
+      - _XXXXX_
+      - X_____X
+      - X______
+      - X______
+      - X______
+      - X_____X
+      - _XXXXX_
+  -
+    name: "D"
+    lines:
+      - XXXXXX_
+      - X_____X
+      - X_____X
+      - X_____X
+      - X_____X
+      - X_____X
+      - XXXXXX_
+  -
+    name: "E"
+    lines:
+      - XXXXXXX
+      - X______
+      - X______
+      - XXXXX__
+      - X______
+      - X______
+      - XXXXXXX
+  -
+    name: "F"
+    lines:
+      - XXXXXXX
+      - X______
+      - X______
+      - XXXXX__
+      - X______
+      - X______
+      - X______
