@@ -138,6 +138,7 @@ public class CircuitDescription extends BuildingDescription {
 
         lBlock = newBlockDescription("sign");
         lBlock.materials.add(Material.SIGN_POST);
+        lBlock.materials.add(Material.WALL_SIGN);
         
         String lNewPin = null;
         int lDir = 1;
@@ -201,6 +202,7 @@ public class CircuitDescription extends BuildingDescription {
 
         lBlock = newBlockDescription("sign");
         lBlock.materials.add(Material.SIGN_POST);
+        lBlock.materials.add(Material.WALL_SIGN);
         
         String lNewPin = null;
         int lSideCount = lCount / 4;
@@ -279,21 +281,20 @@ public class CircuitDescription extends BuildingDescription {
         lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rt");
         lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = lWidth - 1;
-        lRel = lBlock.newRelatedTo(new Vector(0, 0, 2), "lb");
+        lRel = lBlock.newRelatedTo(new Vector( 0, 1, 1), "lm");
+        lRel = lBlock.newRelatedTo(new Vector( 0, 0, 2), "lb");
         lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = 1;
-        lRel = lBlock.newRelatedTo(new Vector(0, lWidth, 0), "ltu");
-        lRel.materials.add(Material.WOOL, WoolColors.black);
-        lRel.minDistance = lWidth - 1;
+        lRel = lBlock.newRelatedTo(new Vector( 0, 1, 0), "rty");
         
         lBlock = newBlockDescription("rt"); lRT = lBlock;
         lBlock.materials.add(Material.WOOL, WoolColors.black);
-        lRel = lBlock.newRelatedTo(new Vector(0, 0, 2), "rb");
+        lRel = lBlock.newRelatedTo(new Vector( 0, 0, 2), "rb");
         lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = 1;
-        lRel = lBlock.newRelatedTo(new Vector(0, lWidth, 0), "rtu");
-        lRel.materials.add(Material.WOOL, WoolColors.black);
-        lRel.minDistance = lWidth - 1;
+        //lRel = lBlock.newRelatedTo(new Vector(lWidth, lWidth, 0), "rtu", RelatedPosition.AreaYX);
+        //lRel.materials.add(Material.WOOL, WoolColors.black);
+        //lRel.minDistance = lWidth - 1;
         
         lBlock = newBlockDescription("lb"); lLB = lBlock;
         lBlock.materials.add(Material.WOOL, WoolColors.black);
@@ -301,30 +302,49 @@ public class CircuitDescription extends BuildingDescription {
         lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = lWidth - 1;
         lRel = lBlock.newRelatedTo("sign", RelatedPosition.Nearby, 1);
-        lRel = lBlock.newRelatedTo(new Vector(0, lWidth, 0), "lbu");
-        lRel.materials.add(Material.WOOL, WoolColors.black);
-        lRel.minDistance = lWidth - 1;
+        lRel = lBlock.newRelatedTo(new Vector( 0, 1, 0), "rby");
         
         lBlock = newBlockDescription("rb");
         lBlock.materials.add(Material.WOOL, WoolColors.black);
-        lRel = lBlock.newRelatedTo(new Vector(0, lWidth, 0), "rbu");
-        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel = lBlock.newRelatedTo(new Vector( 0, lWidth, 0), "rbu");
+        lRel.materials.add(Material.REDSTONE_LAMP_OFF);
+        lRel.materials.add(Material.REDSTONE_LAMP_ON);
         lRel.minDistance = lWidth - 1;
 
         lBlock = newBlockDescription("sign");
         lBlock.materials.add(Material.SIGN_POST);
+        lBlock.materials.add(Material.WALL_SIGN);
         
-        lBlock = newBlockDescription("ltu");
+        lBlock = newBlockDescription("rty");
         lBlock.materials.add(Material.WOOL, WoolColors.black);
+        lRel = lBlock.newRelatedTo(new Vector(lWidth, lWidth, 0), "rtu", RelatedPosition.AreaXZ);
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lRel.minDistance = lWidth - 1;
+
+        lBlock = newBlockDescription("rby");
+        lBlock.materials.add(Material.REDSTONE_LAMP_OFF);
+        lBlock.materials.add(Material.REDSTONE_LAMP_ON);
+        lRel = lBlock.newRelatedTo(new Vector(lWidth, lWidth, 0), "rbu", RelatedPosition.AreaXZ);
+        lRel.materials.add(Material.REDSTONE_LAMP_OFF);
+        lRel.materials.add(Material.REDSTONE_LAMP_ON);
+        lRel.minDistance = lWidth - 1;
 
         lBlock = newBlockDescription("rtu");
         lBlock.materials.add(Material.WOOL, WoolColors.black);
-
-        lBlock = newBlockDescription("lbu");
-        lBlock.materials.add(Material.REDSTONE_LAMP_OFF);
+        //lRel = lBlock.newRelatedTo(new Vector(0, 0, 1), "rtmu");
 
         lBlock = newBlockDescription("rbu");
         lBlock.materials.add(Material.REDSTONE_LAMP_OFF);
+        lBlock.materials.add(Material.REDSTONE_LAMP_ON);
+
+        lBlock = newBlockDescription("lm");
+        lBlock.materials.add(Material.LEVER);
+        lRel = lBlock.newRelatedTo(new Vector(lWidth, lWidth, 0), "rtmu", RelatedPosition.AreaXZ);
+        lRel.materials.add(Material.LEVER);
+        lRel.minDistance = lWidth - 1;
+
+        lBlock = newBlockDescription("rtmu");
+        lBlock.materials.add(Material.LEVER);
 
         String lNewPin = null;
         int lDir = 1;

@@ -5,6 +5,7 @@
 package com.mahn42.anhalter42.circuit;
 
 import com.mahn42.framework.*;
+import com.mahn42.framework.BuildingDescription.RelatedTo;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.bukkit.Material;
@@ -126,7 +127,35 @@ public class CircuitTask implements Runnable {
                             if (lCPin.newValue != lCPin.oldValue) {
                                 CircuitHandler.Pin lHPin = lHandler.pins.get(lCPin.name);
                                 if (lHPin.mode == CircuitHandler.PinMode.Output) {
-                                    setPin(lSyncList, lCircuit.getBlock(lHPin.pinName).position, lCPin.newValue);
+                                    BlockPosition lPos;
+                                    if (lHPin.pinNameArea != null && !lHPin.pinNameArea.isEmpty()) {
+                                        BuildingBlock lBBlock = lContext.circuit.getBlock(lHPin.pinName);
+                                        RelatedTo lRel = lBBlock.description.getRelation(lHPin.pinNameArea);
+                                        lPos = lBBlock.position.clone();
+                                        if (lRel != null) {
+                                            switch(lRel.position) {
+                                                case AreaXZ:
+                                                    lPos.add( lHPin.areaX, 0, lHPin.areaY);
+                                                    break;
+                                                case AreaYX:
+                                                    lPos.add( lHPin.areaX, lHPin.areaY, 0);
+                                                    break;
+                                                case AreaYZ:
+                                                    lPos.add( 0, lHPin.areaX, lHPin.areaY);
+                                                    break;
+                                                default:
+                                                    lPos.add( 0, 1, 0);
+                                                    break;
+                                            }
+                                        } else {
+                                            lPos.add( 0, 1, 0);
+                                        }
+                                        
+                                    } else {
+                                        lPos = lCircuit.getBlock(lHPin.pinName).position.clone();
+                                        lPos.add( 0, 1, 0);
+                                    }
+                                    setPin(lSyncList, lPos, lCPin.newValue);
                                 }
                             }
                         }
@@ -152,7 +181,6 @@ public class CircuitTask implements Runnable {
 
     private void setPin(SyncBlockList aSyncList, BlockPosition aPosition, boolean aNewValue) {
         BlockPosition lPos = aPosition.clone();
-        lPos.add(0, 1, 0);
         Block lBlock = lPos.getBlock(aSyncList.world);
         if (lBlock.getType().equals(Material.LEVER)) {
             if (aNewValue) {

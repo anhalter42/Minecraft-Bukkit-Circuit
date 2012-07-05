@@ -40,10 +40,6 @@ public class Circuit extends JavaPlugin {
         
         CircuitBuildingHandler lHandler = new CircuitBuildingHandler(this);
 
-        registerCircuitHandler(new CircuitHandler42M00());
-        registerCircuitHandler(new CircuitHandler42M01());
-        registerCircuitHandler(new CircuitHandler42M02());
-        registerCircuitHandler(new CircuitHandler42M555());
         CircuitDescription lDesc;
         
         BuildingDetector lDetector = framework.getBuildingDetector();
@@ -148,6 +144,12 @@ public class Circuit extends JavaPlugin {
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
 
+        registerCircuitHandler(new CircuitHandler42M00());
+        registerCircuitHandler(new CircuitHandler42M01());
+        registerCircuitHandler(new CircuitHandler42M02());
+        registerCircuitHandler(new CircuitHandler42M555());
+        registerCircuitHandler(new CircuitHandler42M2007());
+        
         // access all world, so they are loaded and can work in CircuitTask
         List<World> lWorlds = getServer().getWorlds();
         for(World lWorld : lWorlds) {
