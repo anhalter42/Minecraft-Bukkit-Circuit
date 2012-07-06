@@ -512,3 +512,163 @@ ASCII_7:
       - ____XX_
       - ___XX__
       - __XX___
+  -
+    name: "Line 1"
+    lines:
+      - XXXXXXX
+      - _______
+      - _______
+      - _______
+      - _______
+      - _______
+      - _______
+  -
+    name: "Line 2"
+    lines:
+      - _______
+      - XXXXXXX
+      - _______
+      - _______
+      - _______
+      - _______
+      - _______
+  -
+    name: "Line 3"
+    lines:
+      - _______
+      - _______
+      - XXXXXXX
+      - _______
+      - _______
+      - _______
+      - _______
+  -
+    name: "Line 4"
+    lines:
+      - _______
+      - _______
+      - _______
+      - XXXXXXX
+      - _______
+      - _______
+      - _______
+  -
+    name: "Line 5"
+    lines:
+      - _______
+      - _______
+      - _______
+      - _______
+      - XXXXXXX
+      - _______
+      - _______
+  -
+    name: "Line 6"
+    lines:
+      - _______
+      - _______
+      - _______
+      - _______
+      - _______
+      - XXXXXXX
+      - _______
+  -
+    name: "Line 7"
+    lines:
+      - _______
+      - _______
+      - _______
+      - _______
+      - _______
+      - _______
+      - XXXXXXX
+  -
+    name: "Block LT"
+    lines:
+      - XXXX___
+      - XXXX___
+      - XXXX___
+      - XXXX___
+      - _______
+      - _______
+      - _______
+  -
+    name: "Block LB"
+    lines:
+      - _______
+      - _______
+      - _______
+      - XXXX___
+      - XXXX___
+      - XXXX___
+      - XXXX___
+  -
+    name: "Block RT"
+    lines:
+      - ___XXXX
+      - ___XXXX
+      - ___XXXX
+      - ___XXXX
+      - _______
+      - _______
+      - _______
+  -
+    name: "Block RB"
+    lines:
+      - _______
+      - _______
+      - _______
+      - ___XXXX
+      - ___XXXX
+      - ___XXXX
+      - ___XXXX
+  -
+    name: "Fill 2"
+    lines:
+      - _______
+      - _______
+      - _______
+      - _______
+      - _______
+      - XXXXXXX
+      - XXXXXXX
+  -
+    name: "Fill 3"
+    lines:
+      - _______
+      - _______
+      - _______
+      - _______
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
+  -
+    name: "Fill 4"
+    lines:
+      - _______
+      - _______
+      - _______
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
+  -
+    name: "Fill 5"
+    lines:
+      - _______
+      - _______
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
+  -
+    name: "Fill 6"
+    lines:
+      - _______
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
+      - XXXXXXX
