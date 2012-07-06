@@ -27,7 +27,14 @@ public class CircuitHandler42M2007 extends CircuitHandler {
     
     @Override
     protected void tick() {
-        int lCode = getPinValueInt("pin1") | (getPinValueInt("pin2") << 1) | (getPinValueInt("pin3") << 2) | (getPinValueInt("pin4") << 3);
+        int lCode = getPinValueInt("pin1")
+                | (getPinValueInt("pin2") << 1)
+                | (getPinValueInt("pin3") << 2)
+                | (getPinValueInt("pin4") << 3)
+                | (getPinValueInt("pin5") << 4)
+                | (getPinValueInt("pin6") << 5)
+                | (getPinValueInt("pin7") << 6)
+                | (getPinValueInt("pin8") << 7);
         CircuitFontChar lChar = Circuit.plugin.configASCI_7.getChar(lCode);
         for(int lX = 1; lX <= 7; lX++) {
             for(int lY = 1; lY <= 7; lY++) {

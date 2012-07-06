@@ -59,7 +59,20 @@ public class CircuitFont {
     }
 
     public CircuitFontChar getChar(int aCode) {
-        return chars.get(aCode);
+        if (aCode < chars.size()) {
+            return chars.get(aCode);
+        } else {
+            return null;
+        }
+    }
+
+    public CircuitFontChar getChar(String aName) {
+        for(CircuitFontChar lChar : chars) {
+            if (lChar.name.equals(aName)) {
+                return lChar;
+            }
+        }
+        return null;
     }
 
 }
