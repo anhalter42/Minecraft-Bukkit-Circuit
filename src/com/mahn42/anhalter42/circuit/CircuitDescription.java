@@ -23,46 +23,10 @@ public class CircuitDescription extends BuildingDescription {
         Custom // free style
     }
 
-    /*
-    public enum PinMode {
-        Input,
-        Output,
-        NotConnected
-    }
-    
-    public class Pin {
-        public PinMode mode;
-        public String name;
-        
-        public Pin(PinMode aMode) {
-            mode = aMode;
-        }
-
-        public Pin(PinMode aMode, String aName) {
-            mode = aMode;
-            name = aName;
-        }
-    }
-    
-    public class Pins extends ArrayList<Pin> {
-        public boolean add(PinMode aMode) {
-            return add(new Pin(aMode));
-        }
-
-        public boolean add(PinMode aMode, String aName) {
-            return add(new Pin(aMode, aName));
-        }
-    }
-    */
     public Type type = Type.DIP;
-    //public int inputCount = 0;
-    //public int outputCount = 0;
-    //public int ncCount = 0;
     public int pinCount = 0;
     public String circuitTypeName;
     
-    //public Pins pins = new Pins();
-
     public CircuitDescription() {
     }
     
@@ -96,14 +60,6 @@ public class CircuitDescription extends BuildingDescription {
             circuitTypeName = aCDesc.circuitTypeName;
         }
     }
-    /*
-    public CircuitDescription(Type aType, PinMode[] aInPins) {
-        switch (aType) {
-            case DIP: makeDIP(aInPins); break;
-            case QFP: makeQFP(aInPins); break;
-        }
-    }
-    */
 
     private void makeDIP() {
         int lCount = pinCount;
@@ -126,7 +82,6 @@ public class CircuitDescription extends BuildingDescription {
         
         lBlock = newBlockDescription("lb"); lLB = lBlock;
         lBlock.materials.add(Material.WOOL, WoolColors.black);
-        //lBlock.signSensible = true;
         lRel = lBlock.newRelatedTo(new Vector(lWidth, 0, 0), "rb");
         lRel.materials.add(Material.WOOL, WoolColors.black);
         lRel.minDistance = lWidth - 1;
@@ -150,6 +105,7 @@ public class CircuitDescription extends BuildingDescription {
             lNewPin = "pin" + (lPos + 1);
             lBlock = newBlockDescription(lNewPin);
             lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.materials.add(Material.WOOL, WoolColors.light_gray);
             lBlock.redstoneSensible = true;
             if (lLast == null) {
                 if (lDir > 0) {
@@ -210,6 +166,7 @@ public class CircuitDescription extends BuildingDescription {
             lNewPin = "pin" + (lPos + 1);
             lBlock = newBlockDescription(lNewPin);
             lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.materials.add(Material.WOOL, WoolColors.light_gray);
             lBlock.redstoneSensible = true;
             if (lPos == 0) {
                 lRel = lLast.newRelatedTo(new Vector( 1, 0, 1), lBlock.name);
@@ -225,6 +182,7 @@ public class CircuitDescription extends BuildingDescription {
             lNewPin = "pin" + (lPos + 1 + lSideCount);
             lBlock = newBlockDescription(lNewPin);
             lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.materials.add(Material.WOOL, WoolColors.light_gray);
             lBlock.redstoneSensible = true;
             if (lPos == 0) {
                 lRel = lLast.newRelatedTo(new Vector( 1, 0,-1), lBlock.name);
@@ -240,6 +198,7 @@ public class CircuitDescription extends BuildingDescription {
             lNewPin = "pin" + (lPos + 1 + 2 * lSideCount);
             lBlock = newBlockDescription(lNewPin);
             lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.materials.add(Material.WOOL, WoolColors.light_gray);
             lBlock.redstoneSensible = true;
             if (lPos == 0) {
                 lRel = lLast.newRelatedTo(new Vector(-1, 0,-1), lBlock.name);
@@ -255,6 +214,7 @@ public class CircuitDescription extends BuildingDescription {
             lNewPin = "pin" + (lPos + 1 + 3 * lSideCount);
             lBlock = newBlockDescription(lNewPin);
             lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.materials.add(Material.WOOL, WoolColors.light_gray);
             lBlock.redstoneSensible = true;
             if (lPos == 0) {
                 lRel = lLast.newRelatedTo(new Vector(-1, 0, 1), lBlock.name);
@@ -334,7 +294,6 @@ public class CircuitDescription extends BuildingDescription {
 
         lBlock = newBlockDescription("rtu");
         lBlock.materials.add(Material.WOOL, WoolColors.black);
-        //lRel = lBlock.newRelatedTo(new Vector(0, 0, 1), "rtmu");
 
         for(int lX = 1; lX <= (lWidth+1) ; lX++) {
             for(int lY = 1; lY <= (lWidth+1); lY++) {
@@ -348,16 +307,6 @@ public class CircuitDescription extends BuildingDescription {
                 }
             }
         }
-        /*
-        lBlock = newBlockDescription("lm");
-        lBlock.materials.add(Material.LEVER);
-        lRel = lBlock.newRelatedTo(new Vector(lWidth, lWidth, 0), "rtmu", RelatedPosition.AreaXZ);
-        lRel.materials.add(Material.LEVER);
-        lRel.minDistance = lWidth - 1;
-
-        lBlock = newBlockDescription("rtmu");
-        lBlock.materials.add(Material.LEVER);
-        */
 
         String lNewPin = null;
         int lDir = 1;
@@ -370,6 +319,7 @@ public class CircuitDescription extends BuildingDescription {
             lNewPin = "pin" + (lPos + 1);
             lBlock = newBlockDescription(lNewPin);
             lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.materials.add(Material.WOOL, WoolColors.light_gray);
             lBlock.redstoneSensible = true;
             if (lLast == null) {
                 if (lDir > 0) {

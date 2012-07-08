@@ -55,7 +55,7 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
             CircuitBuilding lCircuit = new CircuitBuilding();
             lCircuit.cloneFrom(aBuilding);
             CircuitDescription lCDesc = (CircuitDescription)lCircuit.description;
-            lPlayer.sendMessage("Circuit design " + lCDesc.circuitTypeName + " found.");
+            lPlayer.sendMessage("Circuit design " + lCDesc.circuitTypeName + " detected.");
             Sign lSign = (Sign)lCircuit.getBlock("sign").position.getBlock(lWorld).getState();
             String[] lSignLines = lSign.getLines();
             if (lSignLines.length > 1) {
@@ -76,10 +76,12 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
     
     @Override
     public boolean signChanged(SignChangeEvent aEvent, Building aBuilding) {
+        /*
         String[] lLines = aEvent.getLines();
         CircuitBuilding lCircuit = (CircuitBuilding)aBuilding;
         checkPins(lCircuit, lLines[0], aEvent.getPlayer());
-        return true;
+        */
+        return false;
     }
 
 
