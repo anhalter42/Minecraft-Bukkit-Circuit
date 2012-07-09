@@ -8,6 +8,7 @@ import com.mahn42.framework.Building;
 import com.mahn42.framework.BuildingDB;
 import com.mahn42.framework.BuildingHandlerBase;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -55,15 +56,17 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
             CircuitBuilding lCircuit = new CircuitBuilding();
             lCircuit.cloneFrom(aBuilding);
             CircuitDescription lCDesc = (CircuitDescription)lCircuit.description;
-            lPlayer.sendMessage("Circuit design " + lCDesc.circuitTypeName + " found.");
+            lPlayer.sendMessage("Circuit design " + lCDesc.circuitTypeName + " detected.");
             Sign lSign = (Sign)lCircuit.getBlock("sign").position.getBlock(lWorld).getState();
             String[] lSignLines = lSign.getLines();
             if (lSignLines.length > 1) {
-                lCircuit.signLine1 = lSign.getLine(1);
-            } else if (lSignLines.length > 2) {
-                lCircuit.signLine2 = lSign.getLine(2);
-            } else if (lSignLines.length > 3) {
-                lCircuit.signLine3 = lSign.getLine(3);
+                lCircuit.signLine1 = lSignLines[1];
+            }
+            if (lSignLines.length > 2) {
+                lCircuit.signLine2 = lSignLines[2];
+            }
+            if (lSignLines.length > 3) {
+                lCircuit.signLine3 = lSignLines[3];
             }
             if (checkPins(lCircuit, lSignLines[0], aEvent.getPlayer())) {
                 lPlayer.sendMessage("Circuit type " + lCircuit.circuitType + " found.");
@@ -76,10 +79,12 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
     
     @Override
     public boolean signChanged(SignChangeEvent aEvent, Building aBuilding) {
+        /*
         String[] lLines = aEvent.getLines();
         CircuitBuilding lCircuit = (CircuitBuilding)aBuilding;
         checkPins(lCircuit, lLines[0], aEvent.getPlayer());
-        return true;
+        */
+        return false;
     }
 
 
