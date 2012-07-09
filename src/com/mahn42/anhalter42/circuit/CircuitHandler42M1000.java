@@ -17,7 +17,7 @@ public class CircuitHandler42M1000 extends CircuitHandler {
         pins.add(PinMode.Input);  // Gate 2 In
         pins.add(PinMode.Input);  // Reset
         pins.add(PinMode.Output); // Pump Out
-        pins.add(PinMode.Output); // Pump In
+        pins.add(PinMode.NotConnected);
         pins.add(PinMode.Output); // InProcess
         pins.add(PinMode.Output); // Gate 2 Out
         pins.add(PinMode.Output); // Gate 1 Out
