@@ -12,6 +12,7 @@ public class CircuitHandler42M02 extends CircuitHandler {
     
     public CircuitHandler42M02() {
         super("DIP4", "42M02");
+        description = "XOR + NXOR Gatter 2 Input";
         pins.add(PinMode.Input);
         pins.add(PinMode.Input);
         pins.add(PinMode.Output);
@@ -24,23 +25,20 @@ public class CircuitHandler42M02 extends CircuitHandler {
         CircuitPin lPin2 = getPin("pin2");
         int lWaitTicks = fContext.circuit.getNamedValueAsInt("waitticks");
         // hat sich ein eingang geändert?
-        if ((lPin1.oldValue != lPin1.newValue) || (lPin2.oldValue != lPin2.newValue)) {
+        if (hasInputPinsChanged()) {
             if (!fContext.circuit.signLine1.isEmpty()) {
                 try {
                     lWaitTicks = Integer.parseInt(fContext.circuit.signLine1);
                 } catch (Exception ex) {
-                    //Logger.getLogger("CircuitHandler42M02").info("signline ex " + ex.getMessage());
                     lWaitTicks = 0;
                 }
             } else {
-                //Logger.getLogger("CircuitHandler42M02").info("no waitticks");
                 lWaitTicks = 0;
             }
         }
         if (lWaitTicks > 0) {
             lWaitTicks--;
         }
-        //if (lWaitTicks >= 0) Logger.getLogger("CircuitHandler42M02").info("waitticks = " + lWaitTicks);
         if (lWaitTicks == 0) {
             setPin("pin3", lPin1.newValue ^ lPin2.newValue);
             setPin("pin4", !(lPin1.newValue ^ lPin2.newValue));

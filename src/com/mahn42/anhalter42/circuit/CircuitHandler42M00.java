@@ -12,6 +12,7 @@ public class CircuitHandler42M00 extends CircuitHandler {
     
     public CircuitHandler42M00() {
         super("DIP4", "42M00");
+        description = "AND + NAND Gatter 2 Input";
         pins.add(PinMode.Input);
         pins.add(PinMode.Input);
         pins.add(PinMode.Output);
@@ -24,7 +25,7 @@ public class CircuitHandler42M00 extends CircuitHandler {
         CircuitPin lPin2 = getPin("pin2");
         int lWaitTicks = fContext.circuit.getNamedValueAsInt("waitticks");
         // hat sich ein eingang geändert?
-        if ((lPin1.oldValue != lPin1.newValue) || (lPin2.oldValue != lPin2.newValue)) {
+        if (hasInputPinsChanged()) {
             if (!fContext.circuit.signLine1.isEmpty()) {
                 try {
                     lWaitTicks = Integer.parseInt(fContext.circuit.signLine1);

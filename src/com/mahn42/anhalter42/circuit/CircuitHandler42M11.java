@@ -8,11 +8,13 @@ package com.mahn42.anhalter42.circuit;
  *
  * @author andre
  */
-public class CircuitHandler42M01 extends CircuitHandler {
-
-    public CircuitHandler42M01() {
-        super("DIP4", "42M01");
-        description = "OR + NOR Gatter 2 Input";
+public class CircuitHandler42M11 extends CircuitHandler {
+    
+    public CircuitHandler42M11() {
+        super("DIP6", "42M11");
+        description = "OR + NOR Gatter 4 Input";
+        pins.add(PinMode.Input);
+        pins.add(PinMode.Input);
         pins.add(PinMode.Input);
         pins.add(PinMode.Input);
         pins.add(PinMode.Output);
@@ -23,6 +25,8 @@ public class CircuitHandler42M01 extends CircuitHandler {
     protected void tick() {
         CircuitPin lPin1 = getPin("pin1");
         CircuitPin lPin2 = getPin("pin2");
+        CircuitPin lPin3 = getPin("pin3");
+        CircuitPin lPin4 = getPin("pin4");
         int lWaitTicks = fContext.circuit.getNamedValueAsInt("waitticks");
         // hat sich ein eingang geändert?
         if (hasInputPinsChanged()) {
@@ -40,10 +44,11 @@ public class CircuitHandler42M01 extends CircuitHandler {
             lWaitTicks--;
         }
         if (lWaitTicks == 0) {
-            setPin("pin3", lPin1.newValue || lPin2.newValue);
-            setPin("pin4", !(lPin1.newValue || lPin2.newValue));
+            setPin("pin5", lPin1.newValue || lPin2.newValue || lPin3.newValue || lPin4.newValue);
+            setPin("pin6", !(lPin1.newValue || lPin2.newValue || lPin3.newValue || lPin4.newValue));
             lWaitTicks = -1; // finish
         }
         fContext.circuit.setNamedValueAsInt("waitticks", lWaitTicks);
     }
+
 }

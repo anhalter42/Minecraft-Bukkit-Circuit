@@ -12,6 +12,7 @@ public class CircuitHandler42M400 extends CircuitHandler {
     
     public CircuitHandler42M400() {
         super("DIP8", "42M400");
+        description = "4 Bit Counter 3 Input 5 Output";
         pins.add(PinMode.Input);
         pins.add(PinMode.Input);
         pins.add(PinMode.Input);

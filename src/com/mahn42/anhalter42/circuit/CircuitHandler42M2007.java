@@ -14,6 +14,7 @@ public class CircuitHandler42M2007 extends CircuitHandler {
 
     public CircuitHandler42M2007() {
         super("DFP8", "42M2007");
+        description = "7x7 Redstone Lamp Display 8 Input";
         pins.add(PinMode.Input);
         pins.add(PinMode.Input);
         pins.add(PinMode.Input);

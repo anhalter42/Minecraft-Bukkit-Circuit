@@ -18,6 +18,7 @@ public class CircuitHandler {
 
     public String typeName;
     public String name;
+    public String description = "unkown function";
     public Pins pins = new Pins();
     
     public enum PinMode {
@@ -143,7 +144,7 @@ public class CircuitHandler {
                         break;
                     case Input: // no Lever should there
                         if (lBlock.getType().equals(Material.LEVER)) {
-                            aFails.add(lBBlock.description.name + " does not have a lever on top!");
+                            aFails.add(lBBlock.description.name + " should not have a lever on top!");
                             lResult = false;
                         }
                         break;
@@ -169,6 +170,15 @@ public class CircuitHandler {
         return fContext.pins.get(aName).oldValue ? 1 : 0;
     }
     
+    protected boolean hasInputPinsChanged() {
+        for(CircuitPin lPin : fContext.pins.values()) {
+            if (lPin.newValue != lPin.oldValue) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected void setPin(String aName, boolean aValue) {
         CircuitPin lPin = fContext.pins.get(aName);
         if (lPin == null) {
@@ -189,7 +199,7 @@ public class CircuitHandler {
         }
         */
     }
-
+    
     protected void setPinInArea(String aName, int aX, int aY, boolean aValue) {
         String lName = getPinAreaName(aName, aX, aY);
         CircuitPin lPin = fContext.pins.get(lName);

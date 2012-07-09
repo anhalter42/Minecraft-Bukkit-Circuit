@@ -2,5 +2,19 @@
 ---
 name: Circuit
 main: com.mahn42.anhalter42.circuit.Circuit
-version: 0.17
+version: 0.18
 depend: [MAHN42-Framework]
+commands:
+   circuit_list:
+      description: List all types and circuits in the current world.
+      usage: /circuit_list [types|<player>]
+      permission: circuit.list
+      permission-message: You don't have permission
+permissions:
+    circuit.*:
+        description: Gives access to all circuit commands
+        children:
+            circuit.list: true
+    circuit.list:
+        description: Allows you to list all circuits in the current world
+        default: true
