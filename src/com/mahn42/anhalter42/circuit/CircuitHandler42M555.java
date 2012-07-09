@@ -45,8 +45,8 @@ public class CircuitHandler42M555 extends CircuitHandler{
         }
         else {
             fContext.circuit.setNamedValueAsInt("waitticks", 0);
-            setPin("pin3", lPin1.newValue);
-            setPin("pin4", !lPin1.newValue);
+            setPin("pin3", false);
+            setPin("pin4", true);
         }
     }
 }
