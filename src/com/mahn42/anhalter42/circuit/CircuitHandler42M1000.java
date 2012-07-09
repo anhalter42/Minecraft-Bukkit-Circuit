@@ -12,12 +12,13 @@ public class CircuitHandler42M1000 extends CircuitHandler {
 
     public CircuitHandler42M1000() {
         super("DIP8", "42M1000");
-        pins.add(PinMode.Input); // Gate 1 In
-        pins.add(PinMode.Input); // Gate 2 In
-        pins.add(PinMode.Input); // Reset
-        pins.add(PinMode.NotConnected);
-        pins.add(PinMode.NotConnected);
+        description = "Sluice Circuit";
+        pins.add(PinMode.Input);  // Gate 1 In
+        pins.add(PinMode.Input);  // Gate 2 In
+        pins.add(PinMode.Input);  // Reset
         pins.add(PinMode.Output); // Pump Out
+        pins.add(PinMode.Output); // Pump In
+        pins.add(PinMode.Output); // InProcess
         pins.add(PinMode.Output); // Gate 2 Out
         pins.add(PinMode.Output); // Gate 1 Out
     }
@@ -115,6 +116,7 @@ public class CircuitHandler42M1000 extends CircuitHandler {
             if (FDebug) Circuit.plugin.getLogger().info("Current SubProcess: 1." + new Integer(FSubProcess).toString());
             switch (FSubProcess) {
                 case 0:
+                    setPin("pin6", true); //InProcess
                     setPin("pin8", false); //Gate 1 close
                     FSubProcess = 1;
                     if (FDebug) Circuit.plugin.getLogger().info("New SubProcess: 1." + new Integer(FSubProcess).toString());
@@ -129,7 +131,7 @@ public class CircuitHandler42M1000 extends CircuitHandler {
                     }
                     break;
                 case 1:
-                    setPin("pin6", false); //Pump empty
+                    setPin("pin4", false); //Pump empty
                     FSubProcess = 2;
                     if (FDebug) Circuit.plugin.getLogger().info("New SubProcess: 1." + new Integer(FSubProcess).toString());
                     if (!fContext.circuit.signLine2.isEmpty()) {
@@ -146,6 +148,7 @@ public class CircuitHandler42M1000 extends CircuitHandler {
                     break;
                 case 2:
                     setPin("pin7", true); //Gate 2 open
+                    setPin("pin6", false); //InProcess
                     FState = 2;
                     FProcess = 0;
                     FSubProcess = 0;
@@ -165,6 +168,7 @@ public class CircuitHandler42M1000 extends CircuitHandler {
             if (FDebug) Circuit.plugin.getLogger().info("Current SubProcess: 2." + new Integer(FSubProcess).toString());
             switch (FSubProcess) {
                 case 0:
+                    setPin("pin6", true); //InProcess
                     setPin("pin7", false); //Gate 2 close
                     FSubProcess = 1;
                     if (FDebug) Circuit.plugin.getLogger().info("New SubProcess: 2." + new Integer(FSubProcess).toString());
@@ -179,7 +183,7 @@ public class CircuitHandler42M1000 extends CircuitHandler {
                     }
                     break;
                 case 1:
-                    setPin("pin6", true); //Pump full
+                    setPin("pin4", true); //Pump full
                     FSubProcess = 2;
                     if (FDebug) Circuit.plugin.getLogger().info("New SubProcess: 2." + new Integer(FSubProcess).toString());
                     if (!fContext.circuit.signLine2.isEmpty()) {
@@ -195,6 +199,7 @@ public class CircuitHandler42M1000 extends CircuitHandler {
                     break;
                 case 2:
                     setPin("pin8", true); //Gate 1 open
+                    setPin("pin6", false); //InProcess
                     FState = 1;
                     FProcess = 0;
                     FSubProcess = 0;

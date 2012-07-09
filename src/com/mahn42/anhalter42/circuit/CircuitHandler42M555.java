@@ -12,6 +12,7 @@ public class CircuitHandler42M555 extends CircuitHandler{
     
     public CircuitHandler42M555() {
         super("DIP4", "42M555");
+        description = "Clock generator";
         pins.add(PinMode.Input);
         pins.add(PinMode.NotConnected);
         pins.add(PinMode.Output);
