@@ -51,11 +51,13 @@ public class CommandList implements CommandExecutor {
             }
         } else {
             for(CircuitBuilding lCircuit : plugin.DBs.getDB(lWorldName)) {
-                String lLine = lCircuit.circuitType + " " + lCircuit.getName() + " " + lCircuit.playerName + " @ " + lCircuit.edge1;
-                if (lPlayer != null) {
-                    lPlayer.sendMessage(lLine);
-                } else {
-                    plugin.getLogger().info(lLine);
+                if (lName.equals("all") || lCircuit.playerName.equals(lName)) {
+                    String lLine = lCircuit.circuitType + " " + lCircuit.getName() + " " + lCircuit.playerName + " @ " + lCircuit.edge1;
+                    if (lPlayer != null) {
+                        lPlayer.sendMessage(lLine);
+                    } else {
+                        plugin.getLogger().info(lLine);
+                    }
                 }
             }
         }

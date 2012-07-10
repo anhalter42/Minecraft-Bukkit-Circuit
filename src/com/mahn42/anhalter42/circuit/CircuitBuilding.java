@@ -36,6 +36,11 @@ public class CircuitBuilding extends Building{
     }
     
     @Override
+    public String getName() {
+        return circuitType + " (" + playerName + ")";
+    }
+    
+    @Override
     protected void toCSVInternal(ArrayList aCols) {
         super.toCSVInternal(aCols);
         aCols.add(circuitType);

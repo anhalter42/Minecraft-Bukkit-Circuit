@@ -2,7 +2,7 @@
 ---
 name: Circuit
 main: com.mahn42.anhalter42.circuit.Circuit
-version: 0.18
+version: 0.19
 depend: [MAHN42-Framework]
 commands:
    circuit_list:
