@@ -164,25 +164,29 @@ public class CircuitTask implements Runnable {
                 // update red stone wire in environment
                 for(BlockPosition lUPos : new BlockPositionWalkAround(lPos, BlockPositionDelta.HorizontalAndVerticalAndDiagonal)) {
                     Block lBlockPin = lUPos.getBlock(aSyncList.world);
-                    if (lBlockPin.getType().equals(Material.REDSTONE_WIRE)) {
-                        //plugin.getLogger().info("found red stone @ " + lBlockPin);
-                        aSyncList.add(lUPos, Material.REDSTONE_WIRE, (byte)0xF, true);
+                    Material lMat = lBlockPin.getType();
+                    if (lMat.equals(Material.REDSTONE_WIRE)) {
+                        aSyncList.add(lUPos, lMat, (byte)0xF, true);
+                        break;
+                    } else if (lMat.equals(Material.REDSTONE_LAMP_OFF)) {
+                        aSyncList.add(lUPos, Material.REDSTONE_LAMP_ON, (byte)0, true);
+                        break;
                     }
                 }
-                
-                //plugin.getLogger().info("set lever at " + lPos + " true");
             } else {
                 aSyncList.add(lPos, Material.LEVER, (byte)(lBlock.getData() & (byte)0xF7), true);
                 // update red stone wire in environment
                 for(BlockPosition lUPos : new BlockPositionWalkAround(lPos, BlockPositionDelta.HorizontalAndVerticalAndDiagonal)) {
                     Block lBlockPin = lUPos.getBlock(aSyncList.world);
-                    if (lBlockPin.getType().equals(Material.REDSTONE_WIRE)) {
-                        //plugin.getLogger().info("found red stone @ " + lBlockPin);
-                        aSyncList.add(lUPos, Material.REDSTONE_WIRE, (byte)0x0, true);
+                    Material lMat = lBlockPin.getType();
+                    if (lMat.equals(Material.REDSTONE_WIRE)) {
+                        aSyncList.add(lUPos, lMat, (byte)0x0, true);
+                        break;
+                    } else if (lMat.equals(Material.REDSTONE_LAMP_ON)) {
+                        aSyncList.add(lUPos, Material.REDSTONE_LAMP_OFF, (byte)0, true);
+                        break;
                     }
                 }
-                
-                //plugin.getLogger().info("set lever at " + lPos + " false");
             }
         } else {
             plugin.getLogger().info("no lever at " + lPos);

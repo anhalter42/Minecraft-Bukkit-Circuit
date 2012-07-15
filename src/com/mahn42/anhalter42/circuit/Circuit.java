@@ -26,6 +26,8 @@ public class Circuit extends JavaPlugin {
 
     public int configCircuitTicks = 1;
     public CircuitFont configASCI_7 = new CircuitFont();
+    public CircuitFont configASCI_5 = new CircuitFont();
+    public CircuitFont configASCI_3 = new CircuitFont();
     
     public CircuitTask circuitTask;
     public HashMap<String, CircuitHandler> circuitHandlers = new HashMap<String, CircuitHandler>();
@@ -153,6 +155,26 @@ public class Circuit extends JavaPlugin {
         lDesc.createAndActivateXZ();
 
         lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.DFP6"; // IC with 6 Pins
+        lDesc.typeName = "DFP IC 6 Pins";
+        lDesc.circuitTypeName = "DFP6";
+        lDesc.type = CircuitDescription.Type.DFP;
+        lDesc.pinCount = 6;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.DFP4"; // IC with 4 Pins
+        lDesc.typeName = "DFP IC 4 Pins";
+        lDesc.circuitTypeName = "DFP4";
+        lDesc.type = CircuitDescription.Type.DFP;
+        lDesc.pinCount = 4;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
+        lDesc = new CircuitDescription();
         lDesc.name = "Circuit.DFP64"; // IC with 64 Pins
         lDesc.typeName = "DFP IC 64 Pins";
         lDesc.circuitTypeName = "DFP64";
@@ -172,7 +194,10 @@ public class Circuit extends JavaPlugin {
         registerCircuitHandler(new CircuitHandler42M400());
         registerCircuitHandler(new CircuitHandler42M555());
         registerCircuitHandler(new CircuitHandler42M1000());
+        registerCircuitHandler(new CircuitHandler42M2003());
+        registerCircuitHandler(new CircuitHandler42M2005());
         registerCircuitHandler(new CircuitHandler42M2007());
+        registerCircuitHandler(new CircuitHandler42M2017());
         
         // access all world, so they are loaded and can work in CircuitTask
         List<World> lWorlds = getServer().getWorlds();
@@ -195,6 +220,8 @@ public class Circuit extends JavaPlugin {
         FileConfiguration lConfig = getConfig();
         configCircuitTicks = lConfig.getInt("CircuitTicks", 1);
         configASCI_7.load(lConfig.getList("ASCII_7"));
+        configASCI_5.load(lConfig.getList("ASCII_5"));
+        configASCI_3.load(lConfig.getList("ASCII_3"));
     }
 
 }

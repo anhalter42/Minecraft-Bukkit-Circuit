@@ -1,6 +1,232 @@
 ## YAML Template.
 ---
 CircuitTicks: 1
+ASCII_3:
+  - 
+    name: "0"
+    lines:
+      - XXX
+      - X_X
+      - XXX
+  -
+    name: "1"
+    lines:
+      - _X_
+      - _X_
+      - _X_
+  -
+    name: "2"
+    lines:
+      - X_X
+      - X_X
+      - X_X
+  -
+    name: "3"
+    lines:
+      - XXX
+      - __X
+      - XXX
+  -
+    name: "4"
+    lines:
+      - X_X
+      - XXX
+      - __X
+  -
+    name: "5"
+    lines:
+      - X_X
+      - X_X
+      - _X_
+  -
+    name: "6"
+    lines:
+      - _XX
+      - X__
+      - _XX
+  -
+    name: "7"
+    lines:
+      - XXX
+      - __X
+      - __X
+  -
+    name: "8"
+    lines:
+      - _X_
+      - X_X
+      - _X_
+  -
+    name: "9"
+    lines:
+      - _XX
+      - X_X
+      - _XX
+  -
+    name: "A"
+    lines:
+      - X_X
+      - _X_
+      - X_X
+  -
+    name: "B"
+    lines:
+      - _X_
+      - XXX
+      - _X_
+  -
+    name: "C"
+    lines:
+      - XXX
+      - _X_
+      - _X_
+  -
+    name: "D"
+    lines:
+      - _X_
+      - _X_
+      - XXX
+  -
+    name: "E"
+    lines:
+      - ___
+      - ___
+      - ___
+  -
+    name: "F"
+    lines:
+      - XXX
+      - XXX
+      - XXX
+ASCII_5:
+  - 
+    name: "0"
+    lines:
+      - _XXX_
+      - X___X
+      - X___X
+      - X___X
+      - _XXX_
+  -
+    name: "1"
+    lines:
+      - ___X_
+      - __XX_
+      - _X_X_
+      - ___X_
+      - ___X_
+  -
+    name: "2"
+    lines:
+      - _XXX_
+      - X___X
+      - __XX_
+      - _X___
+      - XXXXX
+  -
+    name: "3"
+    lines:
+      - _XXX_
+      - X___X
+      - __XX_
+      - X___X
+      - _XXX_
+  -
+    name: "4"
+    lines:
+      - ___X_
+      - __XX_
+      - _X_X_
+      - XXXXX
+      - ___X_
+  -
+    name: "5"
+    lines:
+      - XXXXX
+      - X____
+      - XXXX_
+      - ____X
+      - XXXX_
+  -
+    name: "6"
+    lines:
+      - _XXX_
+      - X____
+      - XXXX_
+      - X___X
+      - _XXX_
+  -
+    name: "7"
+    lines:
+      - XXXXX
+      - ____X
+      - ___X_
+      - __X__
+      - __X__
+  -
+    name: "8"
+    lines:
+      - _XXX_
+      - X___X
+      - _XXX_
+      - X___X
+      - _XXX_
+  -
+    name: "9"
+    lines:
+      - _XXX_
+      - X___X
+      - _XXXX
+      - ____X
+      - _XXX_
+  -
+    name: "A"
+    lines:
+      - _XXX_
+      - X___X
+      - XXXXX
+      - X___X
+      - X___X
+  -
+    name: "B"
+    lines:
+      - XXXX_
+      - X___X
+      - XXXXX
+      - X___X
+      - XXXX_
+  -
+    name: "B"
+    lines:
+      - _XXX_
+      - X___X
+      - X____
+      - X___X
+      - _XXX_
+  -
+    name: "D"
+    lines:
+      - XXXX_
+      - X___X
+      - X___X
+      - X___X
+      - XXXX_
+  -
+    name: "E"
+    lines:
+      - XXXXX
+      - X____
+      - XXXX_
+      - X____
+      - XXXXX
+  -
+    name: "F"
+    lines:
+      - XXXXX
+      - X____
+      - XXXX_
+      - X____
+      - X____
 ASCII_7:
   - 
     name: "0"
@@ -672,3 +898,13 @@ ASCII_7:
       - XXXXXXX
       - XXXXXXX
       - XXXXXXX
+  -
+    name: "Smile"
+    lines:
+      - _______
+      - _X___X_
+      - _______
+      - ___X___
+      - X_____X
+      - _X___X_
+      - __XXX__
