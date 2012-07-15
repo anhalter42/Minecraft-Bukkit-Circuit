@@ -140,7 +140,7 @@ public class CircuitHandler42M2017 extends CircuitHandler {
                             }
                         }
                         for(int lX = 0; lX < 7; lX++) {
-                            boolean lStone = lRnd.nextInt(100) < 20;
+                            boolean lStone = lRnd.nextInt(100) < 10;
                             lDisplay.setPixel(lX, 0, lStone);
                         }
                         for(int lX = 0; lX < 7; lX++) {
