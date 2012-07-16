@@ -7,7 +7,7 @@ depend: [MAHN42-Framework]
 commands:
    circuit_list:
       description: List all types and circuits in the current world.
-      usage: /circuit_list [types|<player>]
+      usage: /circuit_list [types|<player>|all]
       permission: circuit.list
       permission-message: You don't have permission
 permissions:

@@ -22,7 +22,7 @@ public class CircuitHandler42M2017 extends CircuitHandler {
         pins.add(PinMode.Input);
         pins.add(PinMode.Input);
         pins.add(PinMode.Input);
-        pins.add(PinMode.Input);
+        pins.add(PinMode.Output);
         pins.add(PinMode.Output);
         pins.addArea(PinMode.Output, "out", 7);
     }
@@ -108,75 +108,85 @@ public class CircuitHandler42M2017 extends CircuitHandler {
     
     @Override
     protected void tick() {
-        if (getPinValue("pin3")) {
-            int lFlush = fContext.circuit.getNamedValueAsInt("Flush");
-            if (lFlush <= 0) {
-                int lDelay = fContext.circuit.getNamedValueAsInt("Delay");
-                if (lDelay <= 0) {
-                    int lStartCounter = fContext.circuit.getNamedValueAsInt("StartCounter");
-                    if (lStartCounter >= 0) {
-                        Display lDisplay = new Display(7,7);
-                        lDisplay.setChar("" + lStartCounter);
-                        lDisplay.output();
-                        lStartCounter--;
-                    } else {
-                        int lPos = fContext.circuit.getNamedValueAsInt("PlayerPos");
-                        CircuitPin lPin1 = getPin("pin1");
-                        CircuitPin lPin2 = getPin("pin2");
-                        if (lPos > 0 && lPin1.newValue) {
-                            lPos--;
-                        }
-                        if (lPos < 6 && lPin2.newValue) {
-                            lPos++;
-                        }
-                        Random lRnd = new Random();
-                        Display lDisplay = new Display(7,7);
-                        lDisplay.fromString(fContext.circuit.getNamedValue("Display"), "\\.");
-                        boolean lHit = lDisplay.getPixel(lPos, 5);
-                        for(int lY = 5; lY > 0; lY--) {
-                            for(int lX = 0; lX < 7; lX++) {
-                                boolean lStone = lDisplay.getPixel(lX, lY-1);
-                                lDisplay.setPixel(lX, lY, lStone);
+        setPin("pin8", false);
+        setPin("pin7", false);
+        if (getPinValue("pin4")) {
+            if (getPinValue("pin3")) {
+                int lFlush = fContext.circuit.getNamedValueAsInt("Flush");
+                if (lFlush <= 0) {
+                    int lDelay = fContext.circuit.getNamedValueAsInt("Delay");
+                    if (lDelay <= 0) {
+                        int lStartCounter = fContext.circuit.getNamedValueAsInt("StartCounter");
+                        if (lStartCounter >= 0) {
+                            Display lDisplay = new Display(7,7);
+                            lDisplay.setChar("" + lStartCounter);
+                            lDisplay.output();
+                            lStartCounter--;
+                        } else {
+                            int lPos = fContext.circuit.getNamedValueAsInt("PlayerPos");
+                            CircuitPin lPin1 = getPin("pin1");
+                            CircuitPin lPin2 = getPin("pin2");
+                            if (lPos > 0 && lPin1.newValue) {
+                                lPos--;
                             }
+                            if (lPos < 6 && lPin2.newValue) {
+                                lPos++;
+                            }
+                            Random lRnd = new Random();
+                            Display lDisplay = new Display(7,7);
+                            lDisplay.fromString(fContext.circuit.getNamedValue("Display"), "\\.");
+                            boolean lHit = lDisplay.getPixel(lPos, 5);
+                            for(int lY = 5; lY > 0; lY--) {
+                                for(int lX = 0; lX < 7; lX++) {
+                                    boolean lStone = lDisplay.getPixel(lX, lY-1);
+                                    lDisplay.setPixel(lX, lY, lStone);
+                                }
+                            }
+                            for(int lX = 0; lX < 7; lX++) {
+                                boolean lStone = lRnd.nextInt(100) < 10;
+                                lDisplay.setPixel(lX, 0, lStone);
+                            }
+                            for(int lX = 0; lX < 7; lX++) {
+                                lDisplay.setPixel(lX, 6, lPos == lX);
+                            }
+                            lDisplay.output();
+                            if (lHit) {
+                                lDisplay.clear(false);
+                                lFlush = 20;
+                                lStartCounter = 5;
+                                setPin("pin8", lHit);
+                            }
+                            fContext.circuit.setNamedValue("Display", lDisplay.toString("."));
+                            fContext.circuit.setNamedValueAsInt("PlayerPos", lPos);
+                            setPin("pin7", true);
                         }
-                        for(int lX = 0; lX < 7; lX++) {
-                            boolean lStone = lRnd.nextInt(100) < 10;
-                            lDisplay.setPixel(lX, 0, lStone);
-                        }
-                        for(int lX = 0; lX < 7; lX++) {
-                            lDisplay.setPixel(lX, 6, lPos == lX);
-                        }
-                        lDisplay.output();
-                        if (lHit) {
-                            lDisplay.clear(false);
-                            lFlush = 20;
-                            lStartCounter = 5;
-                        }
-                        fContext.circuit.setNamedValue("Display", lDisplay.toString("."));
-                        fContext.circuit.setNamedValueAsInt("PlayerPos", lPos);
+                        fContext.circuit.setNamedValueAsInt("StartCounter", lStartCounter);
+                        lDelay = 10;
+                    } else {
+                        lDelay--;
                     }
-                    fContext.circuit.setNamedValueAsInt("StartCounter", lStartCounter);
-                    lDelay = 10;
+                    fContext.circuit.setNamedValueAsInt("Delay", lDelay);
                 } else {
-                    lDelay--;
+                    lFlush--;
+                    Display lDisplay = new Display(7,7);
+                    lDisplay.clear((lFlush & 2) > 0);
+                    lDisplay.output();
                 }
-                fContext.circuit.setNamedValueAsInt("Delay", lDelay);
+                fContext.circuit.setNamedValueAsInt("Flush", lFlush);
             } else {
-                lFlush--;
+                int lScreenSaver = fContext.circuit.getNamedValueAsInt("ScreenSaver");
+                lScreenSaver = (lScreenSaver + 1) & 15;
                 Display lDisplay = new Display(7,7);
-                lDisplay.clear((lFlush & 2) > 0);
+                lDisplay.setChar(fSSCharNames[lScreenSaver]);
                 lDisplay.output();
+                fContext.circuit.setNamedValueAsInt("ScreenSaver", lScreenSaver);
+                fContext.circuit.setNamedValueAsInt("StartCounter", 8);
+                fContext.circuit.setNamedValueAsInt("Flush", 20);
             }
-            fContext.circuit.setNamedValueAsInt("Flush", lFlush);
         } else {
-            int lScreenSaver = fContext.circuit.getNamedValueAsInt("ScreenSaver");
-            lScreenSaver = (lScreenSaver + 1) & 15;
             Display lDisplay = new Display(7,7);
-            lDisplay.setChar(fSSCharNames[lScreenSaver]);
+            lDisplay.clear(false);
             lDisplay.output();
-            fContext.circuit.setNamedValueAsInt("ScreenSaver", lScreenSaver);
-            fContext.circuit.setNamedValueAsInt("StartCounter", 8);
-            fContext.circuit.setNamedValueAsInt("Flush", 20);
         }
     }
 
