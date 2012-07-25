@@ -77,15 +77,15 @@ ASCII_3:
   -
     name: "C"
     lines:
-      - XXX
+      - X__
       - _X_
       - _X_
   -
     name: "D"
     lines:
+      - __X
       - _X_
       - _X_
-      - XXX
   -
     name: "E"
     lines:
