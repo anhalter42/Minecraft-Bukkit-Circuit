@@ -37,9 +37,14 @@ public class CircuitHandler42M2003 extends CircuitHandler {
         } else {
             lChar = Circuit.plugin.configASCI_3.getChar(lCode);
         }
-        for(int lX = 1; lX <= 3; lX++) {
-            for(int lY = 1; lY <= 3; lY++) {
-                setPinInArea("out", lX, lY, lChar.getPixel(lX - 1, 3 - lY));
+        if (lChar == null) {
+            lChar = Circuit.plugin.configASCI_3.getChar(" ");
+        }
+        if (lChar != null) {
+            for(int lX = 1; lX <= 3; lX++) {
+                for(int lY = 1; lY <= 3; lY++) {
+                    setPinInArea("out", lX, lY, lChar.getPixel(lX - 1, 3 - lY));
+                }
             }
         }
     }
