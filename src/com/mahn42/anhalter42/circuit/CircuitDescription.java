@@ -19,7 +19,8 @@ public class CircuitDescription extends BuildingDescription {
     public enum Type {
         DIP, // Dual in Line (Rechteck mit Pins aun 2 Seiten)
         QFP, // Quad mit Pins an allen Seiten (Quadrat)
-        DFP,  // Dual Footed Package
+        DFP, // Dual Footed Package
+        SFP, // Single Footed Package 
         Custom // free style
     }
 
@@ -37,6 +38,7 @@ public class CircuitDescription extends BuildingDescription {
                 case DIP: makeDIP(); break;
                 case QFP: makeQFP(); break;
                 case DFP: makeDFP(); break;
+                case SFP: makeSFP(); break;
             }
         }
         super.activate();
@@ -336,4 +338,51 @@ public class CircuitDescription extends BuildingDescription {
         }
     }
 
+    private void makeSFP() {
+        int lCount = pinCount; // 2->3 3->5 4->7
+        int lWidth = (pinCount*2)-2;
+        BlockDescription lBlock;
+        BlockDescription lLast = null;
+        BlockDescription lFirst = null;
+        RelatedTo lRel;
+        /*
+         * W    WWWWW 
+         * W    WWWWW
+         * W    WWWWW
+         * W    WWWWW
+         * WBG  GWGWG
+         * 
+         */
+        lBlock = newBlockDescription("lb");
+        lBlock.materials.add(Material.WOOL);
+        lBlock.detectSensible = true;
+        lRel = lBlock.newRelatedTo(new Vector(lWidth, lWidth, 0), "rt", RelatedPosition.AreaXZ);
+        lRel.materials.add(Material.WOOL);
+        lRel = lBlock.newRelatedTo(new Vector( 0, 0, 1), "lbb");
+        lBlock = newBlockDescription("rt");
+        lBlock.materials.add(Material.WOOL);
+        lBlock = newBlockDescription("lbb"); lFirst = lBlock;
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+        lRel = lBlock.newRelatedTo("sign", RelatedPosition.Nearby, 1);
+        lRel = lBlock.newRelatedTo(new Vector( lWidth, 0, 0), "rbb");
+        lRel.materials.add(Material.WOOL, WoolColors.black);
+        lBlock = newBlockDescription("rbb");
+        lBlock.materials.add(Material.WOOL, WoolColors.black);
+        lBlock = newBlockDescription("sign");
+        lBlock.materials.add(Material.SIGN_POST);
+        lBlock.materials.add(Material.WALL_SIGN);
+        for(int lPos = 0; lPos < lCount; lPos++) {
+            String lNewPin = "pin" + (lPos + 1);
+            if (lLast != null) {
+                lLast.newRelatedTo(new Vector(2, 0, 0), lNewPin);
+            } else {
+                lFirst.newRelatedTo(new Vector(0, 0, 1), lNewPin);
+            }
+            lBlock = newBlockDescription(lNewPin);
+            lBlock.materials.add(Material.WOOL, WoolColors.gray);
+            lBlock.materials.add(Material.WOOL, WoolColors.light_gray);
+            lBlock.redstoneSensible = true;
+            lLast = lBlock;
+        }
+    }
 }

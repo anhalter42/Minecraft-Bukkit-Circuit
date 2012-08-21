@@ -184,6 +184,36 @@ public class Circuit extends JavaPlugin {
         lDetector.addDescription(lDesc);
         lDesc.createAndActivateXZ();
 
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.SFP2"; // IC with 2 Pins
+        lDesc.typeName = "SFP IC 2 Pins";
+        lDesc.circuitTypeName = "SFP2";
+        lDesc.type = CircuitDescription.Type.SFP;
+        lDesc.pinCount = 2;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.SFP3"; // IC with 3 Pins
+        lDesc.typeName = "SFP IC 3 Pins";
+        lDesc.circuitTypeName = "SFP3";
+        lDesc.type = CircuitDescription.Type.SFP;
+        lDesc.pinCount = 3;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
+        lDesc = new CircuitDescription();
+        lDesc.name = "Circuit.SFP4"; // IC with 4 Pins
+        lDesc.typeName = "SFP IC 4 Pins";
+        lDesc.circuitTypeName = "SFP4";
+        lDesc.type = CircuitDescription.Type.SFP;
+        lDesc.pinCount = 4;
+        lDesc.handler = lHandler;
+        lDetector.addDescription(lDesc);
+        lDesc.createAndActivateXZ();
+
         registerCircuitHandler(new CircuitHandler42M00());
         registerCircuitHandler(new CircuitHandler42M01());
         registerCircuitHandler(new CircuitHandler42M02());
@@ -198,7 +228,9 @@ public class Circuit extends JavaPlugin {
         registerCircuitHandler(new CircuitHandler42M2005());
         registerCircuitHandler(new CircuitHandler42M2007());
         registerCircuitHandler(new CircuitHandler42M2017());
-        
+        registerCircuitHandler(new CircuitHandler42M2103());
+        registerCircuitHandler(new CircuitHandler42M2105());
+
         // access all world, so they are loaded and can work in CircuitTask
         List<World> lWorlds = getServer().getWorlds();
         for(World lWorld : lWorlds) {
