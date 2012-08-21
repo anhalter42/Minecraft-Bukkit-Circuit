@@ -230,6 +230,7 @@ public class Circuit extends JavaPlugin {
         registerCircuitHandler(new CircuitHandler42M2017());
         registerCircuitHandler(new CircuitHandler42M2103());
         registerCircuitHandler(new CircuitHandler42M2105());
+        registerCircuitHandler(new CircuitHandler42M2107());
 
         // access all world, so they are loaded and can work in CircuitTask
         List<World> lWorlds = getServer().getWorlds();
