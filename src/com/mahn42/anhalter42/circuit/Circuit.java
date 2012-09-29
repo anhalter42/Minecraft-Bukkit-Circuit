@@ -10,6 +10,7 @@ import com.mahn42.framework.WorldDBList;
 import java.util.HashMap;
 import java.util.List;
 import org.bukkit.World;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -257,4 +258,15 @@ public class Circuit extends JavaPlugin {
         configASCI_3.load(lConfig.getList("ASCII_3"));
     }
 
+    public String getText(String aText, Object... aObjects) {
+        return getText((String)null, aText, aObjects);
+    }
+    
+    public String getText(CommandSender aPlayer, String aText, Object... aObjects) {
+        return getText(Framework.plugin.getPlayerLanguage(aPlayer.getName()), aText, aObjects);
+    }
+    
+    public String getText(String aLanguage, String aText, Object... aObjects) {
+        return Framework.plugin.getText(this, aLanguage, aText, aObjects);
+    }
 }

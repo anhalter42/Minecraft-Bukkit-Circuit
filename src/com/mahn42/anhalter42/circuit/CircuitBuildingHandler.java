@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
 import org.bukkit.event.block.BlockRedstoneEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
@@ -37,7 +38,7 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
         CircuitBuilding lCircuit = new CircuitBuilding();
         lCircuit.cloneFrom(aBuilding);
         CircuitDescription lCDesc = (CircuitDescription)lCircuit.description;
-        lCircuit.sendToPlayer("Circuit design " + lCDesc.circuitTypeName + " detected.");
+        lCircuit.sendToPlayer("Circuit design %s detected.", lCDesc.circuitTypeName);
         Sign lSign = (Sign)lCircuit.getBlock("sign").position.getBlock(lCircuit.world).getState();
         String[] lSignLines = lSign.getLines();
         if (lSignLines.length > 1) {
@@ -50,7 +51,7 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
             lCircuit.signLine3 = lSignLines[3];
         }
         if (checkPins(lCircuit, lSignLines[0])) {
-            lCircuit.sendToPlayer("Circuit type " + lCircuit.circuitType + " found.");
+            lCircuit.sendToPlayer("Circuit type %s found.", lCircuit.circuitType);
             lDB.addRecord(lCircuit);
             return lCircuit;
         } else {
@@ -63,11 +64,16 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
         return plugin.DBs.getDB(aWorld);
     }
     
+    @Override
+    public JavaPlugin getPlugin() {
+        return Circuit.plugin;
+    }
+    
     protected boolean checkPins(CircuitBuilding aCircuit, String aHandlerName) {
         if (aHandlerName != null && !aHandlerName.isEmpty()) {
             CircuitHandler lHandler = plugin.circuitHandlers.get(aHandlerName);
             if (lHandler == null) {
-                aCircuit.sendToPlayer("Circuit " + aHandlerName + " unknown!");
+                aCircuit.sendToPlayer("Circuit %s unknown!", aHandlerName);
                 return false;
             } else {
                 if (lHandler.typeName.equals(((CircuitDescription)aCircuit.description).circuitTypeName)) {
@@ -76,14 +82,14 @@ public class CircuitBuildingHandler extends BuildingHandlerBase {
                         aCircuit.circuitType = lHandler.name;
                         return true;
                     } else {
-                        aCircuit.sendToPlayer("Circuit " + lHandler.name + " has a different pin assignments (check levers)!");
+                        aCircuit.sendToPlayer("Circuit %s has a different pin assignments (check levers)!", lHandler.name);
                         for(String lFail : lFails) {
                             aCircuit.sendToPlayer(lFail);
                         }
                         return false;
                     }
                 } else {
-                    aCircuit.sendToPlayer("Circuit " + lHandler.name + " needs to be type " + lHandler.typeName);
+                    aCircuit.sendToPlayer("Circuit %s needs to be type %s.", lHandler.name, lHandler.typeName);
                     return false;
                 }
             }
