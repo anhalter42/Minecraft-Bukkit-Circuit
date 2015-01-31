@@ -218,6 +218,7 @@ public class Circuit extends JavaPlugin {
         registerCircuitHandler(new CircuitHandler42M00());
         registerCircuitHandler(new CircuitHandler42M01());
         registerCircuitHandler(new CircuitHandler42M02());
+        registerCircuitHandler(new CircuitHandler42M05());
         registerCircuitHandler(new CircuitHandler42M10());
         registerCircuitHandler(new CircuitHandler42M11());
         registerCircuitHandler(new CircuitHandler42M12());
