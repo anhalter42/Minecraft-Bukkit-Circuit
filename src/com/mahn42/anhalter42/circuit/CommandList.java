@@ -6,6 +6,8 @@ package com.mahn42.anhalter42.circuit;
 
 import com.mahn42.framework.BlockPosition;
 import java.util.ArrayList;
+import java.util.Set;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -53,7 +55,7 @@ public class CommandList implements CommandExecutor {
                 }
             }
         } if (lName.equals("target")) {
-            Block lBlock = lPlayer.getTargetBlock(null, 100);
+            Block lBlock = lPlayer.getTargetBlock((Set<Material>)null, 100);
             CircuitBuildingDB lDB = plugin.DBs.getDB(lBlock.getWorld());
             ArrayList<CircuitBuilding> lBuildings = lDB.getBuildings(new BlockPosition(lBlock.getLocation()));
             for(CircuitBuilding lCircuit : lBuildings) {
