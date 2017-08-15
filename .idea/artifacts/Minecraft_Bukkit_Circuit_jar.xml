@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Minecraft-Bukkit-Circuit:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Minecraft_Bukkit_Circuit_jar</output-path>
+    <root id="archive" name="com.mahn42.anhalter42.circuit.jar">
+      <element id="module-output" name="Minecraft-Bukkit-Circuit" />
+    </root>
+  </artifact>
+</component>
